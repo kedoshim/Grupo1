@@ -55,10 +55,10 @@ Funcionalidades:
 conforme os parâmetros:
 
 a) Parâmetro: um ID de um vértice de um grafo direcionado; (0,5 pontos)
-Saída: o fecho transitivo direto deste vértice.
+Saída: o fecho transitivo direto deste vértice. //todos os vertices alcançados a partir desse vertice
 
 b) Parâmetro: um ID de um vértice de um grafo direcionado; (0,5 pontos)
-Saída: o fecho transitivo indireto deste vértice.
+Saída: o fecho transitivo indireto deste vértice. //todos os vertices que alcançam esse vertice
 
 c) Parâmetro: o ID de vértices do grafo (1,0 pontos)
 Saída: o coeficiente de agrupamento local do vértice
