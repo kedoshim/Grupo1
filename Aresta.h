@@ -1,3 +1,7 @@
+/*
+Essa classe e responsavel por representar as arestas. Ela armazena os ids dos vertices que ela conecta, o seu peso.
+Armazena tambem o endereco das proximas arestas conectadas aos vertices A e B
+*/
 class Aresta
 {
 private:
