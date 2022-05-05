@@ -1,4 +1,4 @@
-Aresta::getNextAB(int id)
+Aresta* Aresta::getNextAB(int id)
 {
     if(id==idA)
         return nextA;

@@ -14,10 +14,14 @@ public:
     Vertice(int id,float peso);             //se os vertices forem ponderados
     Vertice(int id,float peso, Vertice* anterior);
     ~Vertice();
-    setAresta(Aresta* endereco);
-    setAnterior(Vertice* a);
-    setProximo(Vertice* p);
-    setPeso(float p);
+    void setAresta(Aresta* endereco);
+    void setAnterior(Vertice* a);
+    void setProximo(Vertice* p);
+    void setPeso(float p);
+    Aresta* getAresta();
+    Vertice* getAnterior();
+    Vertice* getProximo();
+    int getPeso();
 
 
 };

@@ -15,6 +15,6 @@ public:
     Aresta(int tail,int head);
     ~Aresta();
     setNextAB(int id,Aresta* e);
-    getNextAB(int id);
+    Aresta* getNextAB(int id);
 
 };
