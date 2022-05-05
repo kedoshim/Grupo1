@@ -9,7 +9,9 @@ private:
     Vertice* vproximo=nullptr;
     Aresta* aresta;
 public:
-    Vertice(int id,float peso)
+    Vertice(int id);
+    Vertice(int id, Vertice* anterior);
+    Vertice(int id,float peso);             //se os vertices forem ponderados
     Vertice(int id,float peso, Vertice* anterior);
     ~Vertice();
     setAresta(Aresta* endereco);
