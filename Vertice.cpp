@@ -23,3 +23,11 @@ Vertice::setPeso(float p)
 {
     peso=p;
 }
+Vertice::getID()
+{
+    return ID;
+}
+Vertice::getProximo()
+{
+    return vproximo;
+}

@@ -18,6 +18,7 @@ public:
     void setAnterior(Vertice* a);
     void setProximo(Vertice* p);
     void setPeso(float p);
+    int getID();
     Aresta* getAresta();
     Vertice* getAnterior();
     Vertice* getProximo();
