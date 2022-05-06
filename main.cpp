@@ -1,6 +1,4 @@
 #include <iostream>
-#include "Aresta.h"
-#include "Vertice.h"
 #include "Grafo.h"
 
 using namespace std;

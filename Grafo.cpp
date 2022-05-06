@@ -1,3 +1,5 @@
+#include "Grafo.h"
+
 Grafo::Grafo(int nvert,int vPonderados,int aPonderadas)
 {
     Vertice* first,vert1,vert2;

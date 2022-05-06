@@ -1,3 +1,6 @@
+#include "Vertice.h"
+
+
 Vertice::Vertice(int id,float p)
 {
     ID=id;
@@ -10,24 +13,24 @@ Vertice::Vertice(int id,float p, Vertice* anterior)
     setAnterior(anterior);
 
 }
-Vertice::setProximo(Vertice* p)
+void Vertice::setProximo(Vertice* p)
 {
     vproximo=p;
 }
-Vertice::setAnterior(Vertice* a)
+void Vertice::setAnterior(Vertice* a)
 {
     vanterior=a;
-    a.setProximo(this);//preciso do endereço do Vertice que estou trabalhando agora. n sei c ta certo
+    a->setProximo(this);//preciso do endereço do Vertice que estou trabalhando agora. n sei c ta certo
 }
-Vertice::setPeso(float p)
+void Vertice::setPeso(float p)
 {
     peso=p;
 }
-Vertice::getID()
+int Vertice::getID()
 {
     return ID;
 }
-Vertice::getProximo()
+Vertice* Vertice::getProximo()
 {
     return vproximo;
 }

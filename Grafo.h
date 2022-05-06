@@ -1,4 +1,3 @@
-#include "Aresta.h"
 #include "Vertice.h"
 
 class Grafo

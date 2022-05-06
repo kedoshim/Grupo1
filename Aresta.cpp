@@ -1,3 +1,6 @@
+#include <iostream>
+#include "Aresta.h"
+
 Aresta* Aresta::getNextAB(int id)
 {
     if(id==idA)
@@ -5,6 +8,6 @@ Aresta* Aresta::getNextAB(int id)
     else if(id==idB)
         return nextB;
     else{
-        cout<<"ERROR. SEM ID VALIDO"<<endl
+        printf("ERROR. SEM ID VALIDO\n");
     }
 }
