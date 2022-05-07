@@ -1,6 +1,6 @@
 #include "Grafo.h"
 
-Grafo::Grafo(int nvert,int vPonderados,int aPonderadas)
+Grafo::Grafo(int nVert, int aPonderadas, int vPonderados)
 {
     Vertice* first,vert1,vert2;
     int id;
