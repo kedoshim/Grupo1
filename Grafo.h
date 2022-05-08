@@ -13,6 +13,7 @@ public:
     ~Grafo();
     void setAresta(int IdA,int idB,float peso,int direcionado);
     void setPesoVertice(int id, float peso);
+    void setArestas(int ponderadas);
     Aresta* getArestaEntreAB(int IDvertA,int IDvertB);
     Vertice* getVerticeDeID(int id);
 };

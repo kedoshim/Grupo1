@@ -1,47 +1,59 @@
+#include <iostream>
 #include "Grafo.h"
 
 using namespace std;
 
 Grafo::Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado)
 {
-    Vertice* first,vert1,vert2;
+    Vertice* first;
+    Vertice* vert1;
+    Vertice* vert2;
     int id;
     vert1=new Vertice(1);
     first=vert1;
-    for(id=2;id<=nvert/2;id++){   //fiz a lista de vertices como um ciclo duplamente encadeado
+    for(id=2;id<=nVert/2;id++){   //fiz a lista de vertices como um ciclo duplamente encadeado
         vert2=new Vertice(id);
-        vert1.setProximo(vert2);
-        vert2.setAnterior(vert1);
+        vert1->setProximo(vert2);
+        vert2->setAnterior(vert1);
         vert1=vert2;
     }
-    vert1.setProximo(first);
-    first.setAnterior(vert1);
-    vatual=vert1;
+    vert1->setProximo(first);
+    first->setAnterior(vert1);
+    setArestas(aPonderadas);
 }
 
-Grafo::getVerticeDeID(int id)
+Vertice* Grafo::getVerticeDeID(int id)
 {
     Vertice* v;
     v=first;
-    if(id<nvert/2)
-        for(v=first;id!=v.getID();v=v.getProximo())
+    if(id<nvertices/2)
+        for(v=first;id!=v->getID();v=v->getProximo());
     else
-        for(v=first;id!=v.getID();v=v.getAnterior())
+        for(v=first;id!=v->getID();v=v->getAnterior());
     return v;
 }
 
-void Grafo::setArestas(int IdA,int idB,float peso,int direcionado)
+void Grafo::setArestas(int ponderadas)
 {
+    int peso=0;
     Aresta* a;
     int idA,idB;
-    while(cin.eof()){
-    cin >> idA >> idB >> endl;
-    a=new Aresta(IdA,idB,peso,direcionado)
+    if(ponderadas==0){
+        while(!cin.eof()){
+        cin >> idA >> idB;
+        a=new Aresta(idA,idB,0,direcionado);
+        }
+    }
+    else{
+        while(!cin.eof()){
+        cin >> idA >> idB >> peso;
+        a=new Aresta(idA,idB,peso,direcionado);
+        }
     }
 
 }
 
-Grafo::getArestaEntreAB(int IDvertA,int IDvertB)
+Aresta* Grafo::getArestaEntreAB(int IDvertA,int IDvertB)
 {
 
 }
