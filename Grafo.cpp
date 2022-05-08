@@ -1,6 +1,8 @@
 #include "Grafo.h"
 
-Grafo::Grafo(int nVert, int aPonderadas, int vPonderados)
+using namespace std;
+
+Grafo::Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado)
 {
     Vertice* first,vert1,vert2;
     int id;
@@ -26,6 +28,17 @@ Grafo::getVerticeDeID(int id)
     else
         for(v=first;id!=v.getID();v=v.getAnterior())
     return v;
+}
+
+void Grafo::setArestas(int IdA,int idB,float peso,int direcionado)
+{
+    Aresta* a;
+    int idA,idB;
+    while(cin.eof()){
+    cin >> idA >> idB >> endl;
+    a=new Aresta(IdA,idB,peso,direcionado)
+    }
+
 }
 
 Grafo::getArestaEntreAB(int IDvertA,int IDvertB)
