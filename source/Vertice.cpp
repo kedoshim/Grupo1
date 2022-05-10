@@ -27,7 +27,7 @@ Vertice* Vertice::getAnterior()
 {
     return vanterior;
 }
-Vertice* Vertice::getAresta()
+Aresta* Vertice::getAresta()
 {
     return aresta;
 }
