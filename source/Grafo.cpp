@@ -26,7 +26,7 @@ Grafo::Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado)
     setArestas(aPonderadas);
 }
 
-Vertice *Grafo::getVerticeDeID(int id)
+Vertice* Grafo::getVerticeDeID(int id)
 {
     Vertice *v;
     v = first;
@@ -37,6 +37,7 @@ Vertice *Grafo::getVerticeDeID(int id)
     else
         for (v = first; id != v->getID(); v = v->getAnterior())
             ;
+
     return v;
 }
 
@@ -64,7 +65,7 @@ void Grafo::setArestas(int ponderadas)
     }
 }
 
-Aresta *getUltimaAresta(int id)
+Aresta *Grafo::getUltimaAresta(int id)
 {
     Vertice *v;
     Aresta *a;

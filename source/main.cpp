@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(int argc, int *argv[]) /*argv[1]=input; argv[2]=output; argv[3]==grafo direcionado; argv[4]==aresta ponderada; argv[5]==vertice ponderado*/
+int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo direcionado; argv[4]==aresta ponderada; argv[5]==vertice ponderado*/
 {
     int nvertices;
     int id;
