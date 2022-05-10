@@ -15,7 +15,7 @@ private:
 public:
     Aresta(int tail,int head,float peso, int direcionado);
     ~Aresta();
-    setNextAB(int id,Aresta* e);
+    void setNextAB(int id,Aresta* e);
     Aresta* getNextAB(int id);
 
 };
