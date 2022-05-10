@@ -23,6 +23,14 @@ int Vertice::getID()
 {
     return ID;
 }
+Vertice* Vertice::getAnterior()
+{
+    return vanterior;
+}
+Vertice* Vertice::getAresta()
+{
+    return aresta;
+}
 Vertice *Vertice::getProximo()
 {
     return vproximo;
