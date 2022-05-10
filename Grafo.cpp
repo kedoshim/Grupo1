@@ -35,7 +35,7 @@ Vertice* Grafo::getVerticeDeID(int id)
 
 void Grafo::setArestas(int ponderadas)
 {
-    int peso=0;
+    float peso=0;
     Aresta* a;
     int idA,idB;
     if(ponderadas==0){
@@ -47,7 +47,7 @@ void Grafo::setArestas(int ponderadas)
     else{
         while(!cin.eof()){
         cin >> idA >> idB >> peso;
-        a=new Aresta(idA,idB,peso,direcionado);
+        a=new Aresta(idA,idB,getUltimaAresta(idA),getUltimaAresta(idB),peso,direcionado);
         }
     }
 
