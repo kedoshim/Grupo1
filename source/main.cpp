@@ -14,7 +14,7 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
     Vertice *vert2;
     
     cin >> nvertices;
-    grafo = new Grafo(nvertices, *argv[1], *argv[2], *argv[3]);
+    grafo = new Grafo(nvertices, 1, 1, 1);
 
     return 0;
 }
