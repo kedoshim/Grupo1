@@ -13,7 +13,7 @@ private:
     Aresta* nextB=nullptr;  //Por isso tem o endereço da proxima aresta de A e B
 
 public:
-    Aresta(int tail,int head,float peso, int direcionado);
+    Aresta(int tail,int head,Aresta* endA, Aresta* endB,float peso, int direcionado);
     ~Aresta();
     void setNextAB(int id,Aresta* e);
     Aresta* getNextAB(int id);

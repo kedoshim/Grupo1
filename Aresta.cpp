@@ -1,17 +1,15 @@
 #include <iostream>
 #include "Aresta.h"
 
-Aresta::Aresta(int tail,int head,float p, int direcionado)
+Aresta::Aresta(int tail,int head,Aresta* endA, Aresta* endB,float p, int direcionado)
 {
     Aresta* a;
     Aresta* b;
-    a=UltimaAresta(tail);
-    b=UltimaAresta(head);
     idA=tail;
     idB=head;
     peso=p;
-    a->setNextAB(idA,this);
-    b->setNextAB(idB,this);
+    endA->setNextAB(idA,this);
+    endB->setNextAB(idB,this);
 
 }
 

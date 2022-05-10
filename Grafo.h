@@ -15,5 +15,6 @@ public:
     void setPesoVertice(int id, float peso);
     void setArestas(int ponderadas);
     Aresta* getArestaEntreAB(int IDvertA,int IDvertB);
+    Aresta* getUltimaAresta(int id);
     Vertice* getVerticeDeID(int id);
 };

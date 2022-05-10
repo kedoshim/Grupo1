@@ -41,7 +41,7 @@ void Grafo::setArestas(int ponderadas)
     if(ponderadas==0){
         while(!cin.eof()){
         cin >> idA >> idB;
-        a=new Aresta(idA,idB,0,direcionado);
+        a=new Aresta(idA,idB,getUltimaAresta(idA),getUltimaAresta(idB),0,direcionado);
         }
     }
     else{
@@ -51,6 +51,20 @@ void Grafo::setArestas(int ponderadas)
         }
     }
 
+}
+
+Aresta* getUltimaAresta(int id)
+{
+    Vertice* v;
+    Aresta* a;
+    Aresta* b;
+    v=getVerticeDeID(id);
+    a=v->getAresta;
+    while(a!=nullptr){
+        b=a;
+        a=a->getNextAB(id);
+    }
+    return b;
 }
 
 Aresta* Grafo::getArestaEntreAB(int IDvertA,int IDvertB)
