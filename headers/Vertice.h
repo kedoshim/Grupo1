@@ -1,4 +1,4 @@
-#include "Aresta.h"
+#include "../headers/Aresta.h"
 
 class Vertice
 {

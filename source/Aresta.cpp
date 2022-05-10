@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Aresta.h"
+#include "../headers/Aresta.h"
 
 Aresta::Aresta(int tail,int head,Aresta* endA, Aresta* endB,float p, int direcionado)
 {
@@ -13,7 +13,7 @@ Aresta::Aresta(int tail,int head,Aresta* endA, Aresta* endB,float p, int direcio
 
 }
 
-Aresta* Aresta::getNextAB(int id) //recebe o id do vertice raiz e devolve a próxima aresta ligada a esse id
+Aresta* Aresta::getNextAB(int id) //recebe o id do vertice raiz e devolve a prï¿½xima aresta ligada a esse id
 {
     if(id==idA)
         return nextA;
@@ -24,7 +24,7 @@ Aresta* Aresta::getNextAB(int id) //recebe o id do vertice raiz e devolve a próx
     }
 }
 
-void Aresta::setNextAB(int id,Aresta* endereco) //recebe o id do vertice raiz e define a próxima aresta ligada a esse vertice
+void Aresta::setNextAB(int id,Aresta* endereco) //recebe o id do vertice raiz e define a prï¿½xima aresta ligada a esse vertice
 {
     if(id==idA)
         nextA=endereco;

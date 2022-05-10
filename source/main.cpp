@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Grafo.h"
+#include "../headers/Grafo.h"
 
 using namespace std;
 
@@ -8,12 +8,13 @@ int main(int argc, int *argv[]) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
     int nvertices;
     int id;
     float peso;
-    int idA,idB;
-    Grafo* grafo;
-    Vertice* vert1;
-    Vertice* vert2;
+    int idA, idB;
+    Grafo *grafo;
+    Vertice *vert1;
+    Vertice *vert2;
+    
     cin >> nvertices;
-    grafo=new Grafo(nvertices,*argv[1],*argv[2],*argv[3]);
+    grafo = new Grafo(nvertices, *argv[1], *argv[2], *argv[3]);
 
     return 0;
 }

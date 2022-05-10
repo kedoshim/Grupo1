@@ -1,4 +1,4 @@
-#include "Vertice.h"
+#include "../headers/Vertice.h"
 
 class Grafo
 {
@@ -8,8 +8,9 @@ private:
     int vPonderados;
     int direcionado;
     Vertice* first;
+
 public:
-    Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado);//1 se ponderado, 0 se não
+    Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado);//1 se ponderado, 0 se nï¿½o
     ~Grafo();
     void setAresta(int IdA,int idB,float peso,int direcionado);
     void setPesoVertice(int id, float peso);
