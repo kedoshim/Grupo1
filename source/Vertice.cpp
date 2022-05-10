@@ -1,10 +1,5 @@
 #include "../headers/Vertice.h"
 
-Vertice::Vertice(int id, float p)
-{
-    ID = id;
-    setPeso(p);
-}
 Vertice::Vertice(int id, float p, Vertice *anterior)
 {
     ID = id;

@@ -10,12 +10,12 @@ Grafo::Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado)
     Vertice *vert2;
     int id;
 
-    vert1 = new Vertice(1);
+    vert1 = new Vertice(1, 0, nullptr);
     first = vert1;
 
     for (id = 2; id <= nVert / 2; id++)
     { // fiz a lista de vertices como um ciclo duplamente encadeado
-        vert2 = new Vertice(id);
+        vert2 = new Vertice(id, 0, nullptr);
         vert1->setProximo(vert2);
         vert2->setAnterior(vert1);
         vert1 = vert2;
@@ -72,11 +72,13 @@ Aresta *Grafo::getUltimaAresta(int id)
     Aresta *b;
     v = getVerticeDeID(id);
     a = v->getAresta();
+
     while (a != nullptr)
     {
         b = a;
         a = a->getNextAB(id);
     }
+    
     return b;
 }
 
