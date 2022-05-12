@@ -46,13 +46,13 @@ void Grafo::setArestas(int ponderadas)
     float peso = 0;
     Aresta *a;
     int idA, idB;
-    
+
     if (ponderadas == 0)
     {
         while (!cin.eof())
         {
             cin >> idA >> idB;
-            a = new Aresta(idA, idB, getUltimaAresta(idA), getUltimaAresta(idB), 0, direcionado);
+            a = new Aresta(idA, idB, getUltimaAresta(idA,1), getUltimaAresta(idB,-1), 0, direcionado);
         }
     }
     else
@@ -60,17 +60,19 @@ void Grafo::setArestas(int ponderadas)
         while (!cin.eof())
         {
             cin >> idA >> idB >> peso;
-            a = new Aresta(idA, idB, getUltimaAresta(idA), getUltimaAresta(idB), peso, direcionado);
+            a = new Aresta(idA, idB, getUltimaAresta(idA,1), getUltimaAresta(idB,-1), peso, direcionado);
         }
     }
 }
 
-Aresta *Grafo::getUltimaAresta(int id)
+Aresta *Grafo::getUltimaAresta(int id, int headORtail)
 {
     Vertice *v;
     Aresta *a;
     Aresta *b;
     v = getVerticeDeID(id);
+    if(headORtail!=0)
+        v->aumentaGrau(headORtail);
     a = v->getAresta();
 
     while (a != nullptr)
@@ -78,7 +80,7 @@ Aresta *Grafo::getUltimaAresta(int id)
         b = a;
         a = a->getNextAB(id);
     }
-    
+
     return b;
 }
 

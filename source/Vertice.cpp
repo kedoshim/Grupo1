@@ -6,6 +6,13 @@ Vertice::Vertice(int id, float p, Vertice *anterior)
     setPeso(p);
     setAnterior(anterior);
 }
+void Vertice::aumentaGrau(int i)
+{
+    if(i>0)
+        grauOut++;
+    else
+        grauIn++;
+}
 void Vertice::setProximo(Vertice *p)
 {
     vproximo = p;
