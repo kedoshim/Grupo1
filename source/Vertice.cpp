@@ -42,3 +42,11 @@ Vertice *Vertice::getProximo()
 {
     return vproximo;
 }
+String Vertice::getNome()
+{
+    return name;
+}
+void Vertice::setNome(string n)
+{
+  nome=n;
+}
