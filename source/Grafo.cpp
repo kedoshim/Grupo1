@@ -52,7 +52,7 @@ void Grafo::setArestas(int ponderadas)
         while (!cin.eof())
         {
             cin >> idA >> idB;
-            a = new Aresta(idA, idB, getUltimaAresta(idA,1), getUltimaAresta(idB,-1), 0, direcionado);
+            a = new Aresta(nome2id(idA), nome2id(idA), getUltimaAresta(idA,1), getUltimaAresta(idB,-1), 0, direcionado);
         }
     }
     else
@@ -86,4 +86,22 @@ Aresta *Grafo::getUltimaAresta(int id, int headORtail)
 
 Aresta *Grafo::getArestaEntreAB(int IDvertA, int IDvertB)
 {
+}
+
+int Grafo::nome2id(string id)
+
+{
+    static idscomnome=0;
+    Vertice* v=first;
+    for(int i=0;i<nvertices;i++){
+        if(v->getname()==id){
+          return i;
+        }
+        if(i>=idscomnome){
+          v->setNome(id);
+          idscomnome++;
+          return i;
+}
+     v=v->getProximo();
+
 }

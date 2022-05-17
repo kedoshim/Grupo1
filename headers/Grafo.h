@@ -12,6 +12,7 @@ private:
 public:
     Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado);//1 se ponderado, 0 se n�o
     ~Grafo();
+    int nome2id(string id);
     void setAresta(int IdA,int idB,float peso,int direcionado);
     void setPesoVertice(int id, float peso);
     void setArestas(int ponderadas);

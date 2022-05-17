@@ -9,8 +9,8 @@ private:
     int idA;
     int idB;
     float peso=0;
-    Aresta* nextA=nullptr;  //A ideia é que como cada aresta liga dois vertices, voce consiga dar procedimento à lista de aresta de ambos os grupos
-    Aresta* nextB=nullptr;  //Por isso tem o endereço da proxima aresta de A e B
+    Aresta* nextA=nullptr;  //A ideia ï¿½ que como cada aresta liga dois vertices, voce consiga dar procedimento ï¿½ lista de aresta de ambos os grupos
+    Aresta* nextB=nullptr;  //Por isso tem o endereï¿½o da proxima aresta de A e B
 
 public:
     Aresta(int tail,int head,Aresta* endA, Aresta* endB,float peso, int direcionado);

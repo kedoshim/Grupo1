@@ -4,6 +4,7 @@ class Vertice
 {
 private:
     int ID;
+    string name;
     int grauIn;
     int grauOut;
     float peso = 0;
@@ -19,9 +20,11 @@ public:
     void setAnterior(Vertice *a);
     void setProximo(Vertice *p);
     void setPeso(float p);
+    void setNome(string n);
     int getID();
     Aresta *getAresta();
     Vertice *getAnterior();
     Vertice *getProximo();
     int getPeso();
+    string getNome();
 };
