@@ -20,7 +20,7 @@ void Vertice::setProximo(Vertice *p)
 void Vertice::setAnterior(Vertice *a)
 {
     vanterior = a;
-    a->setProximo(this); // preciso do endere�o do Vertice que estou trabalhando agora. n sei c ta certo
+    a->setProximo(this); // preciso do endereco do Vertice que estou trabalhando agora. n sei c ta certo
 }
 void Vertice::setPeso(float p)
 {
@@ -42,9 +42,9 @@ Vertice *Vertice::getProximo()
 {
     return vproximo;
 }
-String Vertice::getNome()
+string Vertice::getNome()
 {
-    return name;
+    return nome;
 }
 void Vertice::setNome(string n)
 {

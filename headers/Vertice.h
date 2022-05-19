@@ -1,10 +1,13 @@
 #include "../headers/Aresta.h"
+#include <string>
+
+using namespace std;
 
 class Vertice
 {
 private:
     int ID;
-    string name;
+    string nome;
     int grauIn;
     int grauOut;
     float peso = 0;

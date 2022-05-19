@@ -1,3 +1,4 @@
+#include <fstream>
 #include "../headers/Vertice.h"
 
 class Grafo

@@ -45,23 +45,28 @@ void Grafo::setArestas(int ponderadas)
 {
     float peso = 0;
     Aresta *a;
-    int idA, idB;
+    string idA, idB;
+    int IDa,IDb;
 
     if (ponderadas == 0)
     {
         while (!cin.eof())
         {
             cin >> idA >> idB;
-            a = new Aresta(nome2id(idA), nome2id(idA), getUltimaAresta(idA,1), getUltimaAresta(idB,-1), 0, direcionado);
+          IDa=nome2id(idA);
+          IDb=nome2id(idB);
+            a = new Aresta(IDa, IDb, getUltimaAresta(IDa,1), getUltimaAresta(IDb,-1), 0, direcionado);
         }
     }
     else
     {
-        while (!cin.eof())
-        {
-            cin >> idA >> idB >> peso;
-            a = new Aresta(idA, idB, getUltimaAresta(idA,1), getUltimaAresta(idB,-1), peso, direcionado);
-        }
+      while (!cin.eof())
+      {
+        cin >> idA >> idB >> peso;
+        IDa=nome2id(idA);
+        IDb=nome2id(idB);
+        a = new Aresta(IDa, IDb, getUltimaAresta(IDa,1), getUltimaAresta(IDb,-1), peso, direcionado);
+      }
     }
 }
 
@@ -91,17 +96,17 @@ Aresta *Grafo::getArestaEntreAB(int IDvertA, int IDvertB)
 int Grafo::nome2id(string id)
 
 {
-    static idscomnome=0;
+    static int idscomnome=0;
     Vertice* v=first;
     for(int i=0;i<nvertices;i++){
-        if(v->getname()==id){
+        if(v->getNome()==id){
           return i;
         }
         if(i>=idscomnome){
           v->setNome(id);
           idscomnome++;
           return i;
-}
+        }
      v=v->getProximo();
-
+      }
 }
