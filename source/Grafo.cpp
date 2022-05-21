@@ -26,7 +26,7 @@ Grafo::Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado)
     setArestas(aPonderadas);
 }
 
-Vertice* Grafo::getVerticeDeID(int id)
+Vertice *Grafo::getVerticeDeID(int id)
 {
     Vertice *v;
     v = first;
@@ -46,27 +46,27 @@ void Grafo::setArestas(int ponderadas)
     float peso = 0;
     Aresta *a;
     string idA, idB;
-    int IDa,IDb;
+    int IDa, IDb;
 
     if (ponderadas == 0)
     {
         while (!cin.eof())
         {
             cin >> idA >> idB;
-          IDa=nome2id(idA);
-          IDb=nome2id(idB);
-            a = new Aresta(IDa, IDb, getUltimaAresta(IDa,1), getUltimaAresta(IDb,-1), 0, direcionado);
+            IDa = nome2id(idA);
+            IDb = nome2id(idB);
+            a = new Aresta(IDa, IDb, getUltimaAresta(IDa, 1), getUltimaAresta(IDb, -1), 0, direcionado);
         }
     }
     else
     {
-      while (!cin.eof())
-      {
-        cin >> idA >> idB >> peso;
-        IDa=nome2id(idA);
-        IDb=nome2id(idB);
-        a = new Aresta(IDa, IDb, getUltimaAresta(IDa,1), getUltimaAresta(IDb,-1), peso, direcionado);
-      }
+        while (!cin.eof())
+        {
+            cin >> idA >> idB >> peso;
+            IDa = nome2id(idA);
+            IDb = nome2id(idB);
+            a = new Aresta(IDa, IDb, getUltimaAresta(IDa, 1), getUltimaAresta(IDb, -1), peso, direcionado);
+        }
     }
 }
 
@@ -76,7 +76,7 @@ Aresta *Grafo::getUltimaAresta(int id, int headORtail)
     Aresta *a;
     Aresta *b;
     v = getVerticeDeID(id);
-    if(headORtail!=0)
+    if (headORtail != 0)
         v->aumentaGrau(headORtail);
     a = v->getAresta();
 
@@ -96,17 +96,20 @@ Aresta *Grafo::getArestaEntreAB(int IDvertA, int IDvertB)
 int Grafo::nome2id(string id)
 
 {
-    static int idscomnome=0;
-    Vertice* v=first;
-    for(int i=0;i<nvertices;i++){
-        if(v->getNome()==id){
-          return i;
+    static int idscomnome = 0;
+    Vertice *v = first;
+    for (int i = 0; i < nvertices; i++)
+    {
+        if (v->getNome() == id)
+        {
+            return i;
         }
-        if(i>=idscomnome){
-          v->setNome(id);
-          idscomnome++;
-          return i;
+        if (i >= idscomnome)
+        {
+            v->setNome(id);
+            idscomnome++;
+            return i;
         }
-     v=v->getProximo();
-      }
+        v = v->getProximo();
+    }
 }

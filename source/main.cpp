@@ -16,32 +16,27 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
   }
 
   ifstream arquivo;
-  string linha, stringVertices;
+  string linha, stringVertices = "";
   string param = "";
-  int cont = 0;
+  int numArestas = 0;
 
   arquivo.open(argv[1]);
 
   if (arquivo.is_open())
   {
 
-    cont = 0;
-
     while (getline(arquivo, linha))
     {
-      if (cont == 0)
+      if (stringVertices == "")
         stringVertices = linha;
       else
         param += linha + '\n';
 
-      cont++;
+      numArestas++;
     }
   }
-
   else
-  {
     cout << "Nao foi possivel abrir o arquivo. " << endl;
-  }
 
   cout << "Numero de nos: " << stringVertices << endl;
   cout << "Parametros: " << endl;
