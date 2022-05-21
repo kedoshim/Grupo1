@@ -6,6 +6,7 @@ using namespace std;
 
 int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo direcionado; argv[4]==aresta ponderada; argv[5]==vertice ponderado*/
 {
+
   if (argc != 6)
   {
     cout << "Numero errado de argumentos" << endl;
@@ -15,9 +16,38 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
   }
 
   ifstream arquivo;
+  string linha, stringVertices;
+  string param = "";
+  int cont = 0;
+
   arquivo.open(argv[1]);
 
-  int nvertices;
+  if (arquivo.is_open())
+  {
+
+    cont = 0;
+
+    while (getline(arquivo, linha))
+    {
+      if (cont == 0)
+        stringVertices = linha;
+      else
+        param += linha + '\n';
+
+      cont++;
+    }
+  }
+
+  else
+  {
+    cout << "Nao foi possivel abrir o arquivo. " << endl;
+  }
+
+  cout << "Numero de nos: " << stringVertices << endl;
+  cout << "Parametros: " << endl;
+  cout << param << endl;
+
+  /* int nvertices;
   int id;
   float peso;
   int idA, idB;
@@ -27,6 +57,6 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
 
   cin >> nvertices;
   grafo = new Grafo(nvertices, stoi(argv[4]), stoi(argv[5]), stoi(argv[3])); //argumentos precisam ser int
-
+ */
   return 0;
 }
