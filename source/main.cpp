@@ -42,7 +42,7 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
   cout << "Parametros: " << endl;
   cout << param;
 
-  /* int nvertices;
+  int nvertices = stoi(stringVertices);
   int id;
   float peso;
   int idA, idB;
@@ -50,8 +50,7 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
   Vertice *vert1;
   Vertice *vert2;
 
-  cin >> nvertices;
-  grafo = new Grafo(nvertices, stoi(argv[4]), stoi(argv[5]), stoi(argv[3])); //argumentos precisam ser int
- */
+  grafo = new Grafo(nvertices, stoi(argv[4]), stoi(argv[5]), stoi(argv[3])); // argumentos precisam ser int
+
   return 0;
 }

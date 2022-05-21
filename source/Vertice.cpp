@@ -4,7 +4,6 @@ Vertice::Vertice(int id, float p, Vertice *anterior)
 {
     ID = id;
     setPeso(p);
-    setAnterior(anterior);
 }
 void Vertice::aumentaGrau(int i)
 {
@@ -19,10 +18,11 @@ void Vertice::setProximo(Vertice *p)
     vproximo = p;
 }
 
-void Vertice::setAnterior(Vertice *a)
+void Vertice::setAnterior(Vertice *a) // pro primeiro vértice, tava dando erro, pq n tem como buscar o próximo de um nullptr
 {
     vanterior = a;
-    a->setProximo(this); // preciso do endereco do Vertice que estou trabalhando agora. n sei c ta certo
+    if (a != nullptr)
+        a->setProximo(this); // preciso do endereco do Vertice que estou trabalhando agora. n sei c ta certo
 }
 
 void Vertice::setPeso(float p)
