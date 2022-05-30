@@ -13,11 +13,10 @@ Grafo::Grafo(int nVert, int aPonderadas, int vPonderados, int direcionado)
     vert1 = new Vertice(1, 0, nullptr);
     first = vert1;
 
-    for (id = 2; id <= nVert / 2; id++)
+    for (id = 2; id <= nVert; id++)
     { // fiz a lista de vertices como um ciclo duplamente encadeado
-        vert2 = new Vertice(id, 0, nullptr);
+        vert2 = new Vertice(id, 0, vert1);
         vert1->setProximo(vert2);
-        vert2->setAnterior(vert1);
         vert1 = vert2;
     }
 
@@ -43,7 +42,7 @@ Vertice *Grafo::getVerticeDeID(int id)
 
 void Grafo::setArestas(int ponderadas)
 {
-    float peso = 0;
+    int peso = 0;
     Aresta *a;
     string idA, idB;
     int IDa, IDb;

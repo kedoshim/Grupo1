@@ -38,19 +38,65 @@ int main(int argc, char **argv) /*argv[1]=input; argv[2]=output; argv[3]==grafo 
   else
     cout << "Nao foi possivel abrir o arquivo. " << endl;
 
-  cout << "Numero de nos: " << stringVertices << endl;
+  /* cout << "Numero de nos: " << stringVertices << endl;
   cout << "Parametros: " << endl;
-  cout << param;
+  cout << param; */
 
   int nvertices = stoi(stringVertices);
-  int id;
-  float peso;
-  int idA, idB;
-  Grafo *grafo;
-  Vertice *vert1;
-  Vertice *vert2;
 
-  grafo = new Grafo(nvertices, stoi(argv[4]), stoi(argv[5]), stoi(argv[3])); // argumentos precisam ser int
+  Grafo *grafo = new Grafo(nvertices, stoi(argv[4]), stoi(argv[5]), stoi(argv[3])); // argumentos precisam ser int
 
   return 0;
 }
+
+/* void setVertices(string param, Grafo *grafo, int nvertices)
+{
+  string a = "", b = "", c = "";
+  int *listaID = (int *)calloc(nvertices, sizeof(int)), id = 1, cont = 0, contE = 0;
+
+  for (auto i : param)
+  {
+
+    if (i == ' ')
+    {
+      contE++;
+      continue;
+    }
+
+    if (contE == 0)
+    {
+      a += i;
+      continue;
+    }
+
+    if (contE == 1)
+    {
+      b += i;
+      continue;
+    }
+
+    if (contE == 2)
+    {
+      c += i;
+      continue;
+    }
+
+    if (i == '\n')
+      contE = 0;
+
+    if (listaID[stoi(a)] == 0 && a != "")
+    {
+      listaID[stoi(a)] = id;
+      id++;
+    }
+
+    if (listaID[stoi(b)] == 0 && b != "")
+    {
+      listaID[stoi(a)] = id;
+      id++;
+    }
+
+    grafo->setAresta(listaID[stoi(a)], listaID[stoi(b)], 0, 0);
+    a = b = c = "";
+  }
+} */
