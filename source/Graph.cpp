@@ -24,10 +24,13 @@ Graph::Graph(char **argv)
             std::stringstream sTeste(temp);
 
             while (getline(sTeste, line, ' '))
-            {
                 test.push_back(stoi(line));
-            }
+
+            /* if (std::stoi(argv[3]) == 1)
+                this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)), test.at(2));
+            else */
             this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)));
+
             test.clear();
         }
     }
@@ -45,12 +48,17 @@ void Graph::connectVertex(Vertex *a, Vertex *b)
     b->setNextEdge(a->getID());
 }
 
+void Graph::connectVertex(Vertex *a, Vertex *b, int weight)
+{
+    a->setNextEdge(b->getID());
+    b->setNextEdge(a->getID());
+}
+
 void Graph::setVertex(int nVertex)
 {
-    Vertex *temp = new Vertex(1), *v = nullptr;
-
-    temp->setPrev(nullptr);
-    first = temp;
+    Vertex *v = NULL;
+    first = new Vertex(1);
+    first->setPrev(NULL);
 
     for (int i = 2; i <= nVertex; i++)
     {
@@ -63,11 +71,24 @@ void Graph::setVertex(int nVertex)
 
 Vertex *Graph::getVertexByID(int id)
 {
-    for (Vertex *v = first; v != nullptr; v = v->getNext())
+    for (Vertex *v = first; v != NULL; v = v->getNext())
     {
         if (v->getID() == id)
             return v;
     }
 
-    return nullptr;
+    return NULL;
+}
+
+void Graph::imprimeAdjacentes()
+{
+    for (Vertex *i = first; i != NULL; i = i->getNext())
+    {
+        std::cout << "Vertex " << i->getID() << ": ";
+
+        for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
+            std::cout << j->getID() << ' ';
+
+        std::cout << std::endl;
+    }
 }

@@ -9,7 +9,7 @@
         "teste.txt"
       ],
       "stopAtEntry": false,
-      "externalConsole": false,
+      "externalConsole": true,
       "cwd": "c:/Users/diasj/OneDrive/Documentos/Grafos/Grupo1/source",
       "program": "c:/Users/diasj/OneDrive/Documentos/Grafos/Grupo1/source/build/Debug/outDebug",
       "MIMode": "gdb",

@@ -1,11 +1,18 @@
+#include <bits/stdc++.h>
+
 class Edge
 {
 private:
-    int vertexID;
-    Edge *nextEdge = nullptr;
+    int id;
+    Edge *nextEdge = NULL;
     int weight;
+
 public:
-    Edge(int id);
+    Edge(int idEdge);
+    Edge(int idEdge, int weightEdge);
     ~Edge();
-    void setNextEdge(int edgeID);
+    void setNextEdge(int idEdge);
+    void setNextEdge(int idEdge, int weightVertex);
+    Edge *getNext() { return nextEdge; };
+    int getID() { return id; };
 };
