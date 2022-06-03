@@ -1,3 +1,5 @@
 
 *.o
 source/main.exe
+.vscode/tasks.json
+headers/Edge.exe
