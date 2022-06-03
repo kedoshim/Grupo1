@@ -3,6 +3,20 @@
 
 Graph::Graph(char **argv)
 {
+    isDirectioned = std::stoi(argv[3]);
+    edgeIsWeighted = std::stoi(argv[4]);
+    vertexIsWeighted = std::stoi(argv[5]);
+
+    readArchives(argv);
+}
+
+Graph::~Graph()
+{
+}
+
+void Graph::readArchives(char **argv)
+{
+
     std::ifstream archive;
     std::string line, stringVertex = "", temp = "";
     int nVertex;
@@ -38,20 +52,18 @@ Graph::Graph(char **argv)
         std::cout << "Nao foi possivel abrir o arquivo." << std::endl;
 }
 
-Graph::~Graph()
-{
-}
-
 void Graph::connectVertex(Vertex *a, Vertex *b)
 {
     a->setNextEdge(b->getID());
-    b->setNextEdge(a->getID());
+    if (!isDirectioned)
+        b->setNextEdge(a->getID());
 }
 
 void Graph::connectVertex(Vertex *a, Vertex *b, int weight)
 {
     a->setNextEdge(b->getID(), weight);
-    b->setNextEdge(a->getID(), weight);
+    if (!isDirectioned)
+        b->setNextEdge(a->getID(), weight);
 }
 
 void Graph::setVertex(int nVertex)
@@ -87,7 +99,7 @@ void Graph::imprimeAdjacentes()
         std::cout << "Vertex " << i->getID() << ": ";
 
         for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
-            std::cout << i->getID() << "<->" << j->getID() << ' ' << "(" << j->getWeight() << ") ";
+            std::cout << i->getID() << "<->" << j->getID() << ' ';
 
         std::cout << std::endl;
     }

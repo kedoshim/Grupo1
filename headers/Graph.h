@@ -3,6 +3,9 @@
 class Graph
 {
 private:
+    int isDirectioned;
+    int edgeIsWeighted;
+    int vertexIsWeighted;
     Vertex *first;
 
 public:
@@ -13,6 +16,7 @@ public:
     void connectVertex(Vertex *a, Vertex *b, int weight);
     Vertex *getVertexByID(int id);
     void setVertex(int nVertex);
+    void readArchives(char **argv);
 
     void imprimeAdjacentes();
 };

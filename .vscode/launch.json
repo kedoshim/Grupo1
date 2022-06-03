@@ -8,8 +8,8 @@
       "args": [
         "teste.txt",
         "out.txt",
-        "0",
         "1",
+        "0",
         "0"
       ],
       "stopAtEntry": false,
