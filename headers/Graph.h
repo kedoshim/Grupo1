@@ -21,4 +21,5 @@ public:
     void function();
 
     void imprimeAdjacentes();
+    void imprimeAdjacentes(char* output);
 };

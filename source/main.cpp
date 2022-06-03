@@ -9,6 +9,26 @@ argv[4] = aresta ponderada;
 argv[5] = nó ponderado
 */
 
+void menu(Graph* g);
+
+int main(int argc, char *argv[])
+{
+    /* if(argc != 6){
+        std::cout << "Numero errado de argumentos" << std::endl;
+        return -1;
+    } */
+
+
+
+    Graph *g = new Graph(argv);
+
+    g->imprimeAdjacentes(argv[2]);
+
+    menu(g);
+
+    return 0;
+}
+
 void menu(Graph* g){
     char input;
     printf("\n1 - Fecho transitivo direto deste vertice\n");
@@ -55,22 +75,4 @@ void menu(Graph* g){
         return;  
     }
     menu(g);
-}
-
-int main(int argc, char **argv)
-{
-    /* if(argc != 6){
-        std::cout << "Numero errado de argumentos" << std::endl;
-        return -1;
-    } */
-
-
-
-    Graph *g = new Graph(argv);
-
-    g->imprimeAdjacentes();
-
-    menu(g);
-
-    return 0;
 }
