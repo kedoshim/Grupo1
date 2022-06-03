@@ -92,9 +92,12 @@ Vertex *Graph::getVertexByID(int id)
     return NULL;
 }
 
-void Graph::imprimeAdjacentes()
+void Graph::imprimeAdjacentes(char* output)
 {
-    for (Vertex *i = first; i != NULL; i = i->getNext())
+    std::string str(output);
+    std::ofstream out;
+    out.open(output, std::ofstream::out | std::ofstream::app);
+    /* for (Vertex *i = first; i != NULL; i = i->getNext())
     {
         std::cout << "Vertex " << i->getID() << ": ";
 
@@ -102,5 +105,15 @@ void Graph::imprimeAdjacentes()
             std::cout << i->getID() << "<->" << j->getID() << ' ';
 
         std::cout << std::endl;
+    } */
+    for (Vertex *i = first; i != NULL; i = i->getNext())
+    {
+        out << "Vertex " << i->getID() << ": ";
+
+        for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
+            out << i->getID() << "<->" << j->getID() << ' ';
+
+        out << std::endl;
     }
+    out.close();
 }
