@@ -18,7 +18,5 @@ public:
     void setVertex(int nVertex);
     void readArchives(char **argv);
 
-    void function();
-
     void imprimeAdjacentes();
 };
