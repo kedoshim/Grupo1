@@ -6,3 +6,5 @@ headers/Edge.exe
 .vscode/launch.json
 .vscode/settings.json
 source/build/Debug/outDebug.exe
+*.exe
+*.json
