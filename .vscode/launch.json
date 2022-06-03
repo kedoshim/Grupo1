@@ -6,7 +6,11 @@
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        "teste.txt"
+        "teste.txt",
+        "out.txt",
+        "0",
+        "1",
+        "0"
       ],
       "stopAtEntry": false,
       "externalConsole": true,

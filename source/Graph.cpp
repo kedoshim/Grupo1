@@ -26,10 +26,10 @@ Graph::Graph(char **argv)
             while (getline(sTeste, line, ' '))
                 test.push_back(stoi(line));
 
-            /* if (std::stoi(argv[3]) == 1)
+            if (std::stoi(argv[4]) == 1)
                 this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)), test.at(2));
-            else */
-            this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)));
+            else
+                this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)));
 
             test.clear();
         }
@@ -50,8 +50,8 @@ void Graph::connectVertex(Vertex *a, Vertex *b)
 
 void Graph::connectVertex(Vertex *a, Vertex *b, int weight)
 {
-    a->setNextEdge(b->getID());
-    b->setNextEdge(a->getID());
+    a->setNextEdge(b->getID(), weight);
+    b->setNextEdge(a->getID(), weight);
 }
 
 void Graph::setVertex(int nVertex)
@@ -87,7 +87,7 @@ void Graph::imprimeAdjacentes()
         std::cout << "Vertex " << i->getID() << ": ";
 
         for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
-            std::cout << j->getID() << ' ';
+            std::cout << i->getID() << "<->" << j->getID() << ' ' << "(" << j->getWeight() << ") ";
 
         std::cout << std::endl;
     }

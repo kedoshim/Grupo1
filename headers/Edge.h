@@ -15,4 +15,5 @@ public:
     void setNextEdge(int idEdge, int weightVertex);
     Edge *getNext() { return nextEdge; };
     int getID() { return id; };
+    int getWeight() { return weight; };
 };
