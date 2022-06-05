@@ -18,5 +18,5 @@ public:
     void setVertex(int nVertex);
     void readArchives(char **argv);
 
-    void imprimeAdjacentes();
+    void fechoTransitivoDireto();
 };

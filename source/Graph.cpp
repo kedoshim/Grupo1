@@ -92,15 +92,23 @@ Vertex *Graph::getVertexByID(int id)
     return NULL;
 }
 
-void Graph::imprimeAdjacentes()
+void Graph::fechoTransitivoDireto()
 {
-    for (Vertex *i = first; i != NULL; i = i->getNext())
-    {
-        std::cout << "Vertex " << i->getID() << ": ";
+    int id;
 
-        for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
-            std::cout << i->getID() << "<->" << j->getID() << ' ';
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+    std::cout << std::endl;
 
-        std::cout << std::endl;
-    }
+    Vertex *i = this->getVertexByID(id);
+
+    std::cout << "Fecho transitivo direto do vertice " << i->getID() << ": ";
+
+    std::cout << std::endl;
+
+    for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
+        std::cout << i->getID() << " -> " << j->getID() << std::endl;
+
+    std::cout << std::endl;
 }
