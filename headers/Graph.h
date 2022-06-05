@@ -19,4 +19,5 @@ public:
     void readArchives(char **argv);
 
     void fechoTransitivoDireto();
+    void percorreVertices(Vertex *v);
 };
