@@ -110,7 +110,7 @@ void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para pe
         if (w->getVisited())
         {
             if ((arestasRetorno && w->getID() > v->getID()) && w->getID() != v->getVisitedBefore())
-                arestasR += std::to_string(v->getID()) + " -> " + std::to_string(w->getID()) + "\n";
+                arestasR += std::to_string(w->getID()) + " -> " + std::to_string(v->getID()) + "\n";
         }
         else
         {
@@ -182,7 +182,7 @@ void Graph::arvoreCaminhamento()
 
     std::cout << "\nArvore de caminhamento do vertice " << v->getID() << ": ";
     std::cout << std::endl;
-    std::cout << "{ " << arvoreC << " }\n\n";
+    std::cout << "{ " << arvoreC << "}\n\n";
 
     std::cout << "Arestas de retorno: \n{\n"
               << arestasR << "}\n\n";
