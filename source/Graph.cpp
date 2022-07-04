@@ -52,21 +52,21 @@ void Graph::readArchives(char **argv)
         std::cout << "Nao foi possivel abrir o arquivo." << std::endl;
 }
 
-void Graph::connectVertex(Vertex *a, Vertex *b)
+void Graph::connectVertex(Vertex *a, Vertex *b) // Função para conectar dois vertices
 {
     a->setNextEdge(b->getID());
     if (!isDirectioned)
         b->setNextEdge(a->getID());
 }
 
-void Graph::connectVertex(Vertex *a, Vertex *b, int weight)
+void Graph::connectVertex(Vertex *a, Vertex *b, int weight) // Função para conectar dois vertices com peso
 {
     a->setNextEdge(b->getID(), weight);
     if (!isDirectioned)
         b->setNextEdge(a->getID(), weight);
 }
 
-void Graph::setVertex(int nVertex)
+void Graph::setVertex(int nVertex) // Função para criar os vertices
 {
     Vertex *v = NULL;
     first = new Vertex(1);
@@ -81,7 +81,7 @@ void Graph::setVertex(int nVertex)
     }
 }
 
-Vertex *Graph::getVertexByID(int id)
+Vertex *Graph::getVertexByID(int id) // Função para retornar o vertice pelo ID
 {
     for (Vertex *v = first; v != NULL; v = v->getNext())
     {
@@ -92,18 +92,41 @@ Vertex *Graph::getVertexByID(int id)
     return NULL;
 }
 
-void Graph::percorreVertices(Vertex *v)
+void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para percorrer os vertices
 {
-    v->setVisited();
+    if (!v->getVisited())
+    {
+        v->setVisited(true);
+    }
+
+    if (arestasRetorno)
+        arvoreC += std::to_string(v->getID()) + " ";
 
     for (Edge *e = v->getEdge(); e != NULL; e = e->getNext())
     {
-        if (this->getVertexByID(e->getID())->getVisited() == false)
-            percorreVertices(getVertexByID(e->getID()));
+        Vertex *w = getVertexByID(e->getID());
+
+        // if a vertex was already visited, add it to the "arestasR" string
+        if (w->getVisited())
+        {
+            if ((arestasRetorno && w->getID() > v->getID()) && w->getID() != v->getVisitedBefore())
+                arestasR += std::to_string(v->getID()) + " -> " + std::to_string(w->getID()) + "\n";
+        }
+        else
+        {
+            w->setVisitedBefore(v->getID());
+            percorreVertices(w, arestasRetorno);
+        }
     }
 }
 
-void Graph::fechoTransitivoDireto()
+void Graph::clearVertex() // Função para limpar os vertices
+{
+    for (Vertex *v = first; v != NULL; v = v->getNext())
+        v->setVisited(false);
+}
+
+void Graph::fechoTransitivoDireto() // Função para calcular o fecho transitivo direto
 {
     int id;
     std::string s = "";
@@ -113,9 +136,10 @@ void Graph::fechoTransitivoDireto()
     std::cin >> id;
     std::cout << std::endl;
 
+    clearVertex();
     Vertex *i = this->getVertexByID(id);
 
-    percorreVertices(i);
+    percorreVertices(i, false);
 
     std::cout << "Fecho transitivo direto do vertice " << i->getID() << ": ";
 
@@ -127,7 +151,7 @@ void Graph::fechoTransitivoDireto()
     {
         if (i->getVisited())
         {
-            s += std::to_string(i->getID()) + ", ";
+            s += std::to_string(i->getID()) + " ";
             /* std::cout << i->getID() << ": " << std::endl;
 
             for (Edge *e = i->getEdge(); e != NULL; e = e->getNext())
@@ -137,10 +161,29 @@ void Graph::fechoTransitivoDireto()
         }
     }
 
-    s.pop_back();
-    s.pop_back();
+    s += "}\n";
 
-    s += " }\n";
+    std::cout << s << "\n\n";
+}
 
-    std::cout << s;
+void Graph::arvoreCaminhamento()
+{
+    int id;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+
+    Vertex *v = this->getVertexByID(id);
+
+    clearVertex();
+    percorreVertices(v, true);
+
+    std::cout << "\nArvore de caminhamento do vertice " << v->getID() << ": ";
+    std::cout << std::endl;
+    std::cout << "{ " << arvoreC << " }\n\n";
+
+    std::cout << "Arestas de retorno: \n{\n"
+              << arestasR << "}\n\n";
 }

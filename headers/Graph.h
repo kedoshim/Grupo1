@@ -7,6 +7,8 @@ private:
     int edgeIsWeighted;
     int vertexIsWeighted;
     Vertex *first;
+    std::string arestasR = "";
+    std::string arvoreC = "";
 
 public:
     Graph(char **argv);
@@ -17,7 +19,9 @@ public:
     Vertex *getVertexByID(int id);
     void setVertex(int nVertex);
     void readArchives(char **argv);
+    void clearVertex();
 
     void fechoTransitivoDireto();
-    void percorreVertices(Vertex *v);
+    void percorreVertices(Vertex *v, bool arestasRetorno);
+    void arvoreCaminhamento();
 };

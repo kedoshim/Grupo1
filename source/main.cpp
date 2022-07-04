@@ -36,7 +36,7 @@ void menu(Graph *g)
   printf("\n6 - Caminho minimo entre dois vertices usando algoritmo de Floyd\n");
   printf("\n7 - Arvore Geradora Minima sobre o subgrafo vertice-induzido por X usando o algoritmo de Prim\n");
   printf("\n8 - Arvore Geradora Minima sobre o subgrafo vertice-induzido por X usando o algoritmo de Kruskal\n");
-  printf("\n9 - Arvore dada pela ordem de caminhamento em profundidade a partir de ne dado paremetro, destacando as arestas de retorno\n");
+  printf("\n9 - Arvore dada pela ordem de caminhamento em profundidade a partir de um dado no, destacando as arestas de retorno\n");
   printf("\n\nPressione 0 para sair\n");
   while (input != '1' && input != '2' && input != '3' && input != '4' && input != '5' && input != '6' && input != '7' && input != '8' && input != '9' && input != '0')
     scanf(" %c", &input);
@@ -67,7 +67,7 @@ void menu(Graph *g)
       /*  g->function() */;
     break;
   case '9':
-      /*  g->function() */;
+    g->arvoreCaminhamento();
     break;
   case '0':
     return;
