@@ -46,7 +46,7 @@ void menu(Graph *g)
     g->fechoTransitivoDireto();
     break;
   case '2':
-      /*  g->function() */;
+    g->fechoTransitivoIndireto();
     break;
   case '3':
       /*  g->function() */;

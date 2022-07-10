@@ -92,6 +92,11 @@ Vertex *Graph::getVertexByID(int id) // Função para retornar o vertice pelo ID
     return NULL;
 }
 
+Vertex *Graph::getFirst() // Função para retornar o primeiro vertice
+{
+    return first;
+}
+
 void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para percorrer os vertices
 {
     if (!v->getVisited())
@@ -120,6 +125,18 @@ void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para pe
     }
 }
 
+void Graph::percorreVertices(Vertex *v) // Função para percorrer os vertices
+{
+    if (!v->getVisited())
+        v->setVisited(true);
+
+    for (Edge *e = v->getEdge(); e != NULL; e = e->getNext())
+    {
+        Vertex *w = getVertexByID(e->getID());
+        percorreVertices(w);
+    }
+}
+
 void Graph::clearVertex() // Função para limpar os vertices
 {
     for (Vertex *v = first; v != NULL; v = v->getNext())
@@ -139,7 +156,7 @@ void Graph::fechoTransitivoDireto() // Função para calcular o fecho transitivo
     clearVertex();
     Vertex *i = this->getVertexByID(id);
 
-    percorreVertices(i, false);
+    percorreVertices(i);
 
     std::cout << "Fecho transitivo direto do vertice " << i->getID() << ": ";
 
@@ -150,14 +167,42 @@ void Graph::fechoTransitivoDireto() // Função para calcular o fecho transitivo
     for (i; i != NULL; i = i->getNext())
     {
         if (i->getVisited())
-        {
             s += std::to_string(i->getID()) + " ";
-            /* std::cout << i->getID() << ": " << std::endl;
+    }
 
-            for (Edge *e = i->getEdge(); e != NULL; e = e->getNext())
-                std::cout << i->getID() << " -> " << e->getID() << std::endl;
+    s += "}\n";
 
-            std::cout << "\n\n"; */
+    std::cout << s << "\n\n";
+}
+
+void Graph::fechoTransitivoIndireto() // Função para calcular o fecho transitivo indireto
+{
+    int id;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+    std::cout << std::endl;
+
+    clearVertex();
+    Vertex *i = this->getFirst(), *v = this->getVertexByID(id);
+
+    std::cout << "Fecho transitivo indireto do vertice " << v->getID() << ": ";
+
+    std::cout << std::endl;
+
+    std::cout << "{ ";
+
+    for (i; i != NULL; i = i->getNext())
+    {
+        for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
+        {
+            if (j->getID() == v->getID())
+            {
+                s += std::to_string(i->getID()) + " ";
+                break;
+            }
         }
     }
 
