@@ -14,7 +14,7 @@ Graph::~Graph()
 {
 }
 
-void Graph::readArchives(char **argv)
+void Graph::readArchives(char **argv) // Função para ler o arquivo de entrada e criar o grafo
 {
 
     std::ifstream archive;
@@ -97,7 +97,7 @@ Vertex *Graph::getFirst() // Função para retornar o primeiro vertice
     return first;
 }
 
-void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para percorrer os vertices
+void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para percorrer os vertices destacando as arestas de retorno
 {
     if (!v->getVisited())
     {
@@ -211,7 +211,7 @@ void Graph::fechoTransitivoIndireto() // Função para calcular o fecho transiti
     std::cout << s << "\n\n";
 }
 
-void Graph::arvoreCaminhamento()
+void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore de caminhamento 
 {
     int id;
     std::string s = "";
