@@ -65,16 +65,17 @@ void menu(Graph *g)
       /*  g->function() */;
     break;
   case '5':
-      /*  g->camMinD() */;
+    g->camMinD();
     break;
   case '6':
-      /*  g->camMinF() */;
+    g->camMinF();
     break;
   case '7':
-      /*  g->function() */;
+    cout << "\nPara essa função, é necessário um subgrafo vértice induzido" << endl;
+    g->agmPrim(g->getVerticeInduzido());
     break;
   case '8':
-      /*  g->function() */;
+    g->agmKruskal();
     break;
   case '9':
     g->arvoreCaminhamento();

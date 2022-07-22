@@ -4,9 +4,10 @@ using namespace std;
 class Graph
 {
 private:
+    string archiveS;
     string outString;
     int order = 0;
-    int isDirectioned;
+    int isDirected;
     int edgeIsWeighted;
     int vertexIsWeighted;
     Vertex *first;
@@ -24,6 +25,10 @@ public:
     void setVertex(int nVertex);
     void readArchives(char **argv);
     void clearVertex();
+
+    bool getDirected() { return isDirected; };
+    bool getWeightedEdge() { return edgeIsWeighted; };
+    bool getWeightedVertex() { return vertexIsWeighted; };
 
     void fechoTransitivoDireto(int id);
     void fechoTransitivoIndireto(int id);

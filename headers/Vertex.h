@@ -10,6 +10,7 @@ private:
     Vertex *next = NULL;
     Edge *nextEdge = NULL;
     int visitedBefore = 0;
+    int posicaoVertice;
 
 public:
     Vertex(int idVertex);
@@ -26,5 +27,12 @@ public:
     void setNextEdge(int vID, int weightVertex);
     void setVisitedBefore(int vID) { this->visitedBefore = vID; };
     int getVisitedBefore() { return this->visitedBefore; };
+    void setposicaoVertice(int pos) { this->posicaoVertice = pos; };
+    int getposicaoVertice() { return this->posicaoVertice; };
+    Graph *getVerticeInduzido();
+    float camMinD();
+    void camMinF();
+    void agmPrim();
+    void agmKruskal();
     ~Vertex();
 };

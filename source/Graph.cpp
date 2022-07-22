@@ -9,8 +9,9 @@ using namespace std;
 //! Constructor
 Graph::Graph(char **argv)
 {
+    archiveS = argv[1];
     outString = argv[2];
-    isDirectioned = stoi(argv[3]);
+    isDirected = stoi(argv[3]);
     edgeIsWeighted = stoi(argv[4]);
     vertexIsWeighted = stoi(argv[5]);
 
@@ -28,7 +29,7 @@ void Graph::readArchives(char **argv) // Função para ler o arquivo de entrada 
     string line, stringVertex = "", temp = "";
     int nVertex;
 
-    archive.open(argv[1]);
+    archive.open(archiveS);
 
     if (archive.is_open())
     {
@@ -64,14 +65,14 @@ void Graph::readArchives(char **argv) // Função para ler o arquivo de entrada 
 void Graph::connectVertex(Vertex *a, Vertex *b) // Função para conectar dois vertices
 {
     a->setNextEdge(b->getID());
-    if (!isDirectioned)
+    if (!isDirected)
         b->setNextEdge(a->getID());
 }
 
 void Graph::connectVertex(Vertex *a, Vertex *b, int weight) // Função para conectar dois vertices com peso
 {
     a->setNextEdge(b->getID(), weight);
-    if (!isDirectioned)
+    if (!isDirected)
         b->setNextEdge(a->getID(), weight);
 }
 
@@ -319,4 +320,179 @@ void Graph::outFileArvCam(vector<string> *grafoS)
 
     outDot.close();
     system("dot -Tpng arvCam.dot -o arvCam.png");
+}
+
+void Graph::getVerticeInduzido()
+{
+    cout << "\nVocê deseja rodar para o Grafo inteiro ou para um subgrafo?" << endl;
+    cout << "1 - Grafo inteiro\n2 - Subgrafo\nSua opção: ";
+    int opcao;
+    cin >> opcao;
+
+    if (opcao == 2)
+    {
+        cout << "\nDigite os IDs dos vértices  no formato (1;2;3;4):" << endl;
+
+        string aux;
+        cout << "Vértices: ";
+        cin >> aux;
+
+        // Vector para armazenar os ids dos vértices do subgrafo
+        vector<int> idV;
+        idV.clear();
+
+        // Separando a string
+        stringstream ss(aux);
+        while (getline(ss, aux, ';'))
+        {
+            if (this->searchNode(stoi(aux)))
+                idV.push_back(stoi(aux));
+            else
+                cout << "O vértice " << aux << " não está no Grafo" << endl;
+        }
+
+        // Criar o subgrafo vértice induzido
+        Graph *subgrafo = new Graph(idvertices.size(), this->getDirected(), this->getWeightedEdge(), this->getWeightedVertex());
+
+        // Inserindo as arestas correspondentes no subgrafo
+        this->cleanVisited();
+        for (int i = 0; i < idvertices.size(); i++)
+        {
+            for (int j = i + 1; j < idvertices.size(); j++)
+
+                // Verificar se a aresta realmente existe no grafo original
+                if ((!this->getNode(idvertices[j])->getVisited()) && this->getNode(idvertices[i])->searchEdge(idvertices[j]))
+                {
+                    Edge *aux = this->getNode(idvertices[i])->getEdge(idvertices[j]);
+                    subgrafo->insertEdge(idvertices[i], idvertices[j], aux->getWeight());
+                }
+                else
+                    subgrafo->insertNode(idvertices[j]);
+
+            this->getNode(idvertices[i])->setVisited(true);
+        }
+
+        cout << "\nO Subgrafo X foi gerado com sucesso! ";
+        cout << "(Ordem = " << subgrafo->getOrder() << " e Num de Arestas = " << subgrafo->getNumberEdges() << ")" << endl;
+
+        return subgrafo;
+    }
+    else
+        return this;
+}
+
+float Graph::camMinD()
+{
+    ofstream outFile;
+    outFile.open(outString);
+
+    int idSource, idTarget;
+    Vertex *vSource, *vTarget;
+    string idS, idT;
+    try
+    {
+        cout << "Digite o vertice Source" << endl;
+        cin >> idS;
+        cout << "Digite o vertice Target" << endl;
+        cin >> idT;
+        idSource = stoi(idS);
+        idTarget = stoi(idT);
+    }
+    catch (const exception &e)
+    {
+        cout << "Parâmetros inválidos." << endl;
+        return 0;
+    }
+
+    if (idSource == idTarget)
+    {
+        cout << "\n\nA distância é: " << 0 << endl;
+        return 0;
+    } // Encerra caso seja o mesmo vertice
+
+    vSource = getVertexByID(idSource); // Busca o vertice
+    vTarget = getVertexByID(idTarget); // Busca o vertice
+
+    if (vSource != nullptr && vTarget != nullptr)
+    {
+
+        int pSource = vSource->getPosition(), pTarget = vTarget->getPosition(), distancia = INF, V = getOrder();
+        int ver = 0, c_edge = 0, u;
+
+        int *distance = new int[V];  // Vetor para os distâncias entre a posição do noSorce e os demais
+        int *antec = new int[V];     // Vetor para os antecessores
+        bool *visited = new bool[V]; // Vetor para as posições já visitadas
+        for (int i = 0; i < V; i++)
+        {
+            distance[i] = INF;
+            visited[i] = false;
+        }                      // Inicializador dos vetores visitados e distância
+        distance[pSource] = 0; // Distância do vertice para ele mesmo
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> fp; // Fila de prioridade para os pares distancia e vertice
+
+        fp.push(make_pair(distance[pSource], pSource)); // Adiciona o par vetor distância e
+
+        pair<int, int> p = fp.top(); // Adiciona o p na fila de prioridade
+
+        Node *node = nullptr;
+        Edge *edge = nullptr;
+
+        while (!fp.empty())
+        {
+
+            pair<int, int> p = fp.top(); // Pega o do topo
+            u = p.second;                // Obtem o vértice
+            fp.pop();                    // Remove da lista de prioridade
+            if (visited[u] == false)
+            {
+                visited[u] = true; // Marca o vertice como visitado
+                node = getNodePosition(u);
+                if (node != nullptr) // Busca o no pela posição
+                    edge = node->getFirstEdge();
+                else
+                    edge = nullptr; // Pega a primeira aresta do no
+
+                while (edge != nullptr)
+                { // Passa por todas as arestas do vertice u
+
+                    if (!getWeightedEdge())
+                        c_edge = 1; // Para caso não haja pesso a distância será 1 por salto
+                    else
+                        c_edge = edge->getWeight();
+
+                    ver = edge->getTargetPosition(); // Pega a posição do no Target dessa aresta
+
+                    if (distance[ver] > (distance[u] + c_edge))
+                    {                                           // Verifica se a distância é menor
+                        antec[ver] = u;                         // Atualiza o antecessor
+                        distance[ver] = (distance[u] + c_edge); // Atualiza a distância
+                        fp.push(make_pair(distance[ver], ver)); // Adiciona o vertice na fila de prioridade
+                    }
+                    edge = edge->getNextEdge(); // Avança para o a proxima aresta do vertice
+                }
+            }
+        }
+
+        distancia = distance[pTarget];
+
+        delete[] distance; // Desalocando o vetore usado
+        delete[] visited;  // Desalocando o vetore usado
+
+        if (distancia < INF)
+            saidaDijkstra(antec, pSource, pTarget, outFile); // Imprime todo a lista na ordem de acesso
+
+        delete[] antec;
+        cout << "\n\nA distância é: " << distancia << endl;
+        return distancia;
+    }
+    else
+    {
+
+        if (noSource == nullptr)
+            cout << "Source node não existe nesse grafo" << endl;
+        if (noTarget == nullptr)
+            cout << "Target node não existe nesse grafo" << endl;
+        return -1;
+    }
 }
