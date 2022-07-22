@@ -19,7 +19,6 @@ void Graph::readArchives(char **argv) // Função para ler o arquivo de entrada 
 
     std::ifstream archive;
     std::string line, stringVertex = "", temp = "";
-    int nVertex;
 
     archive.open(argv[1]);
 
@@ -65,6 +64,8 @@ void Graph::connectVertex(Vertex *a, Vertex *b, int weight) // Função para con
     if (!isDirectioned)
         b->setNextEdge(a->getID(), weight);
 }
+
+int Graph::getnVertex(){return nVertex;}
 
 void Graph::setVertex(int nVertex) // Função para criar os vertices
 {
@@ -231,4 +232,85 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
 
     std::cout << "Arestas de retorno: \n{\n"
               << arestasR << "}\n\n";
+}
+
+void Graph::Djkstra(){
+
+    String IDa,IDb;
+    int ida,idb
+    Vertex *a,*b;
+    int aux;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice inicial: ";
+    std::cin >> IDa;
+    std::cout << "Digite o ID do vertice final: ";
+    std::cin >> IDb;
+    std::cout << std::endl;
+    ida= stoi(IDa);
+    idb= stoi(IDb);
+
+    clearVertex();
+
+    a=getVertexByID(ida);
+    b=getVertexByID(idb);
+    
+    if (a!= nullptr && b!= nullptr)
+    { 
+        Edge* edge=nullptr;
+        Vertex* vertex=a;
+        int *distance = new int[nVertex];
+        bool *visited= new bool[nVertex];
+        int *antec = new int [nVertex];
+
+        for(int i=0;i<nVertex;i++){
+            distance[i]=INFINITY;
+            visited[i]= false;
+        }
+        distance[a]=0;
+        visited[a]=true;
+
+        for(int i=0;i<nVertex-1;i++){
+
+            if (visited[vertex] == false)
+            {
+                visited[u] = true; //Marca o vertice como visitado
+                node = getNodePosition(u);
+                if (node != nullptr) //Busca o no pela posição
+                    edge = node->getFirstEdge();
+                else
+                    edge = nullptr; //Pega a primeira aresta do no
+
+                while (edge != nullptr)
+                { //Passa por todas as arestas do vertice u
+
+                    if (!getWeightedEdge())
+                        c_edge = 1; //Para caso não haja pesso a distância será 1 por salto
+                    else
+                        c_edge = edge->getWeight();
+
+                    ver = edge->getTargetPosition(); //Pega a posição do no Target dessa aresta
+
+                    if (distance[ver] > (distance[u] + c_edge))
+                    {                                           //Verifica se a distância é menor
+                        antec[ver] = u;                         //Atualiza o antecessor
+                        distance[ver] = (distance[u] + c_edge); //Atualiza a distância
+                        fp.push(make_pair(distance[ver], ver)); //Adiciona o vertice na fila de prioridade
+                    }
+                    edge = edge->getNextEdge(); //Avança para o a proxima aresta do vertice
+
+        /*for(edge=vertex->getEdge();edge != null; edge=edge->getNext){
+            distance[vertex]=edge->getWeight;
+        }
+        int menor=INFINITY;
+        for(int i=0; i<nVertex;i++){
+            if(visited[i]==false&&distance[i]>menor){
+                menor=distance[i];
+                aux=i;*/
+    
+        }
+    }
+
+    }
 }
