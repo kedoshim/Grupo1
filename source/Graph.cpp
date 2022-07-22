@@ -271,32 +271,36 @@ void Graph::Djkstra(){
         distance[a]=0;
         visited[a]=true;
 
+        int v,c,id,peso;
+
+        id=ida
+
         for(int i=0;i<nVertex-1;i++){
 
-            if (visited[vertex] == false)
+            if (visited[id] == false)
             {
-                visited[u] = true; //Marca o vertice como visitado
-                node = getNodePosition(u);
+                visited[id] = true; //Marca o vertice como visitado
+                node = getVertexByID(id);
                 if (node != nullptr) //Busca o no pela posição
-                    edge = node->getFirstEdge();
+                    edge = vertex->getEdge();
                 else
                     edge = nullptr; //Pega a primeira aresta do no
 
                 while (edge != nullptr)
                 { //Passa por todas as arestas do vertice u
 
-                    if (!getWeightedEdge())
-                        c_edge = 1; //Para caso não haja pesso a distância será 1 por salto
+                    if (!getEdgeIsWeighted())
+                        peso = 1; //Para caso não haja pesso a distância será 1 por salto
                     else
-                        c_edge = edge->getWeight();
+                        peso = edge->getWeight();
 
-                    ver = edge->getTargetPosition(); //Pega a posição do no Target dessa aresta
+                    v = edge->getID(); //Pega a posição do no Target dessa aresta
 
-                    if (distance[ver] > (distance[u] + c_edge))
+                    if (distance[v] > (distance[id] + peso))
                     {                                           //Verifica se a distância é menor
-                        antec[ver] = u;                         //Atualiza o antecessor
-                        distance[ver] = (distance[u] + c_edge); //Atualiza a distância
-                        fp.push(make_pair(distance[ver], ver)); //Adiciona o vertice na fila de prioridade
+                        antec[v] = id;                         //Atualiza o antecessor
+                        distance[v] = (distance[id] + peso); //Atualiza a distância
+                        fp.push(make_pair(distance[v], v)); //Adiciona o vertice na fila de prioridade
                     }
                     edge = edge->getNextEdge(); //Avança para o a proxima aresta do vertice
 

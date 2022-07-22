@@ -18,6 +18,7 @@ public:
     void connectVertex(Vertex *a, Vertex *b);
     void connectVertex(Vertex *a, Vertex *b, int weight);
     int getnVertex();
+    bool getEdgeIsWeighted(){return edgeIsWeighted;};
     Vertex *getVertexByID(int id);
     Vertex *getFirst();
     void setVertex(int nVertex);
