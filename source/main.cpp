@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "../headers/Graph.h"
+using namespace std;
 
 /*
 argv[1] = entrada;
@@ -13,7 +14,7 @@ void menu(Graph *g);
 int main(int argc, char **argv)
 {
   /* if(argc != 6){
-      std::cout << "Numero errado de argumentos" << std::endl;
+      cout << "Numero errado de argumentos" << endl;
       return -1;
   } */
 
@@ -28,6 +29,8 @@ void menu(Graph *g)
 {
   char input;
 
+  int i;
+
   printf("1 - Fecho transitivo direto deste vertice\n");
   printf("\n2 - Fecho transitivo indireto deste vertice\n");
   printf("\n3 - Coeficiente de agrupamento local do vertice\n");
@@ -38,15 +41,22 @@ void menu(Graph *g)
   printf("\n8 - Arvore Geradora Minima sobre o subgrafo vertice-induzido por X usando o algoritmo de Kruskal\n");
   printf("\n9 - Arvore dada pela ordem de caminhamento em profundidade a partir de um dado no, destacando as arestas de retorno\n");
   printf("\n\nPressione 0 para sair\n");
+
   while (input != '1' && input != '2' && input != '3' && input != '4' && input != '5' && input != '6' && input != '7' && input != '8' && input != '9' && input != '0')
     scanf(" %c", &input);
   switch (input)
   {
   case '1':
-    g->fechoTransitivoDireto();
+    cout << "Digite o ID do vertice: ";
+    cin >> i;
+    cout << endl;
+    g->fechoTransitivoDireto(i);
     break;
   case '2':
-    g->fechoTransitivoIndireto();
+    cout << "Digite o ID do vertice: ";
+    cin >> i;
+    cout << endl;
+    g->fechoTransitivoIndireto(i);
     break;
   case '3':
       /*  g->function() */;
@@ -55,10 +65,10 @@ void menu(Graph *g)
       /*  g->function() */;
     break;
   case '5':
-      /*  g->function() */;
+      /*  g->camMinD() */;
     break;
   case '6':
-      /*  g->function() */;
+      /*  g->camMinF() */;
     break;
   case '7':
       /*  g->function() */;

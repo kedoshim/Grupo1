@@ -1,14 +1,17 @@
 #include "Vertex.h"
+using namespace std;
 
 class Graph
 {
 private:
+    string outString;
+    int order = 0;
     int isDirectioned;
     int edgeIsWeighted;
     int vertexIsWeighted;
     Vertex *first;
-    std::string arestasR = "";
-    std::string arvoreC = "";
+    string arestasR = "";
+    string arvoreC = "";
 
 public:
     Graph(char **argv);
@@ -22,9 +25,11 @@ public:
     void readArchives(char **argv);
     void clearVertex();
 
-    void fechoTransitivoDireto();
-    void fechoTransitivoIndireto();
+    void fechoTransitivoDireto(int id);
+    void fechoTransitivoIndireto(int id);
     void percorreVertices(Vertex *v, bool arestasRetorno);
     void percorreVertices(Vertex *v);
     void arvoreCaminhamento();
+    void auxArvCam(Vertex *v, vector<int> *vec, vector<int> *returnE, vector<string> *grafoS);
+    void outFileArvCam(vector<string> *grafoS);
 };

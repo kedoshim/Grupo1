@@ -6,7 +6,7 @@
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        "grafo_10000_8.txt",
+        "teste.txt",
         "out.txt",
         "1",
         "0",
