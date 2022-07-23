@@ -1,4 +1,6 @@
 #include "Vertex.h"
+#include "Agm.h"
+#include <list>
 using namespace std;
 
 class Graph
@@ -37,11 +39,16 @@ public:
     bool getWeightedVertex() { return vertexIsWeighted; };
     Graph *getVerticeInduzido();
     int getEdgeNumber() { return edgeNumber; };
+    list<Arestas*> arestasGrafo; // lista com arestas do grafo       
+    list<Vertices*> nosGrafo; //lista com nos do grafo
+    void unir(int v1,int v2, int *ciclo); // Usado para verificar ciclos
+    int pai(int v, int *ciclo); // Usado para verificar ciclos
+
 
     float camMinD();
     void camMinF();
     void agmPrim(Graph *g);
-    void agmKruskal();
+    void agmKruskal(Graph *g);
     void fechoTransitivoDireto(int id);
     void fechoTransitivoIndireto(int id);
     void percorreVertices(Vertex *v, bool arestasRetorno);
