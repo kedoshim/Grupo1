@@ -49,7 +49,7 @@ void menu(Graph *g)
     g->fechoTransitivoIndireto();
     break;
   case '3':
-      /*  g->function() */;
+      g->agrupamentoLocal();
     break;
   case '4':
       /*  g->function() */;

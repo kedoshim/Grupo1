@@ -245,6 +245,7 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
 void Graph::agrupamentoLocal(){
     int id;
     int grau;
+    float coeficiente;
 
     std::cout << "\n";
     std::cout << "Digite o ID do vertice inicial: ";
@@ -256,10 +257,23 @@ void Graph::agrupamentoLocal(){
 
     Edge *e;
     std::vector adjacent<int>;
+    float pairs=0;
     for(e=a->getEdge;e!=nullptr;e=e->getNext){
         grau++;
         adjacent.push_back(e->getID);
     }
+    for(int i=0;i<adjancent.size;i++){
+        v=getVertexByID(adjacent.operator[i]);
+        for(e=v->getEdge;e!=nullptr;e=e->getNext){
+            for(int j=0;j<adjacent.size;j++){
+                if(e->getID==adjacent.operator[j]&&)
+                    pairs++;
+            }
+        }   
+    }
+    coeficiente=grau/pairs;
+
+    std::cout << "O coeficiente de agrupamento local é: "<<coeficiente<<std::endl;
 
 
     
