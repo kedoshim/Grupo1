@@ -488,7 +488,7 @@ void Graph::insertVertex(int id)
 void Graph::agmKruskal(Graph *g)
 {   
     Agm *agm = new Agm();             // Criando o conjunto solucao das arestas com menor peso
-    vector<Arestas*> arestasAux;      // Criando vetor que guarda as arestas
+    vector<Edge*> arestasAux;      // Criando vetor que guarda as arestas
     int *ciclo;
     ciclo = new int [arestasGrafo.size()];
 
