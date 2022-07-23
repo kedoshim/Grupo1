@@ -93,6 +93,14 @@ Vertex *Graph::getVertexByID(int id) // Função para retornar o vertice pelo ID
     return NULL;
 }
 
+int Graph::getVertexPower(Vertex *a){
+    Edge *e;
+    int i;
+    for(e=a->getEdge;e!=nullptr;e=e->getNext)i++;
+
+    return i;
+}
+
 Vertex *Graph::getFirst() // Função para retornar o primeiro vertice
 {
     return first;
@@ -234,9 +242,36 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
               << arestasR << "}\n\n";
 }
 
+void Graph::agrupamentoLocal(){
+    int id;
+    int grau;
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice inicial: ";
+    std::cin >> id;
+    std::cout << std::endl;
+
+    Vertex *vertex= getVertexByID(id);
+    Vertex *v;
+
+    Edge *e;
+    std::vector adjacent<int>;
+    for(e=a->getEdge;e!=nullptr;e=e->getNext){
+        grau++;
+        adjacent.push_back(e->getID);
+    }
+
+
+    
+
+
+}
+
+void Graph::agrupamentoGlobal(){}
+
 void Graph::Djkstra(){
 
-    String IDa,IDb;
+    std::string IDa,IDb;
     int ida,idb
     Vertex *a,*b;
     int aux;

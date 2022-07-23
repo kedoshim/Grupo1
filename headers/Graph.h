@@ -21,6 +21,7 @@ public:
     bool getEdgeIsWeighted(){return edgeIsWeighted;};
     Vertex *getVertexByID(int id);
     Vertex *getFirst();
+    int getVertexPower(Vertex *a);
     void setVertex(int nVertex);
     void readArchives(char **argv);
     void clearVertex();
@@ -30,6 +31,8 @@ public:
     void percorreVertices(Vertex *v, bool arestasRetorno);
     void percorreVertices(Vertex *v);
     void arvoreCaminhamento();
-    void Djkstra(Vertex *a, Vertex *b);
+    void agrupamentoLocal();
+    void agrupamentoGlobal();
+    void Djkstra();
     void Floyd(Vertex *a, Vertex *b);
 };
