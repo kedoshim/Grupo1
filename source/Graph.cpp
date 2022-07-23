@@ -2,6 +2,7 @@
 #include "../headers/Graph.h"
 #include "../headers/Agm.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 //**************************************************************************************************
@@ -517,8 +518,8 @@ void Graph::agmKruskal(Graph *g)
     for (auto  i = arestasAux.begin(); i != arestasAux.end(); i++){
         Edge*  j       = *i;
         // Detectando se com esta aresta forma ciclo:
-		if ( pai(j->getID(), ciclo) != pai(j->getId_alvo(), ciclo)){ 
-			unir(j->getID(), j->getId_alvo(), ciclo);
+		if ( pai(j->getID(), ciclo) != pai(j->getNext(), ciclo)){ 
+			unir(j->getID(), j->getNext(), ciclo);
 
             agm->insereAresta(j);       // Insere aresta na arvore agm 
 		}
@@ -531,11 +532,11 @@ void Graph::agmKruskal(Graph *g)
     
 }
 // Funcao que uni o pai de dois vertices no ciclo para descobrir se forma ciclo
-void Grafo::unir(int v1,int v2, int *ciclo){
+void Graph::unir(int v1,int v2, int *ciclo){
     ciclo[pai(v1, ciclo)] = pai(v2, ciclo);
 }
 
-int Grafo::pai(int v, int *ciclo){
+int Graph::pai(int v, int *ciclo){
      if (ciclo[v] == v){
         return v;
 	}

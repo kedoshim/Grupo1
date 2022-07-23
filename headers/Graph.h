@@ -39,8 +39,7 @@ public:
     bool getWeightedVertex() { return vertexIsWeighted; };
     Graph *getVerticeInduzido();
     int getEdgeNumber() { return edgeNumber; };
-    list<Arestas*> arestasGrafo; // lista com arestas do grafo       
-    list<Vertices*> nosGrafo; //lista com nos do grafo
+    list<Edge*> arestasGrafo; // lista com arestas do grafo         
     void unir(int v1,int v2, int *ciclo); // Usado para verificar ciclos
     int pai(int v, int *ciclo); // Usado para verificar ciclos
 
