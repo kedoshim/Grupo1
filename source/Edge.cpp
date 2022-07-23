@@ -1,19 +1,21 @@
 #include "../headers/Edge.h"
 
-Edge::Edge(int vID)
+Edge::Edge(int vID, int *edgeNumber)
 {
+    (*edgeNumber)++;
     id = vID;
 }
 
-Edge::Edge(int vID, int weightEdge)
+Edge::Edge(int vID, int weightEdge, int *edgeNumber)
 {
+    (*edgeNumber)++;
     id = vID;
     weight = weightEdge;
 }
 
-void Edge::setNextEdge(int vID)
+void Edge::setNextEdge(int vID, int *edgeNumber)
 {
-    Edge *e = new Edge(vID);
+    Edge *e = new Edge(vID, edgeNumber);
 
     if (nextEdge == NULL)
         this->nextEdge = e;
@@ -29,8 +31,8 @@ void Edge::setNextEdge(int vID)
     }
 }
 
-void Edge::setNextEdge(int vID, int weightVertex)
+void Edge::setNextEdge(int vID, int weightVertex, int *edgeNumber)
 {
-    Edge *e = new Edge(vID, weightVertex);
+    Edge *e = new Edge(vID, weightVertex, edgeNumber);
     this->nextEdge = e;
 }

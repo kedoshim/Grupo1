@@ -8,11 +8,11 @@ private:
     int weight;
 
 public:
-    Edge(int idEdge);
-    Edge(int idEdge, int weightEdge);
+    Edge(int idEdge, int *edgeNumber);
+    Edge(int idEdge, int weightEdge, int *edgeNumber);
     ~Edge();
-    void setNextEdge(int idEdge);
-    void setNextEdge(int idEdge, int weightVertex);
+    void setNextEdge(int idEdge, int *edgeNumber);
+    void setNextEdge(int idEdge, int weightVertex, int *edgeNumber);
     Edge *getNext() { return nextEdge; };
     int getID() { return id; };
     int getWeight() { return weight; };

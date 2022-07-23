@@ -7,73 +7,38 @@ using namespace std;
 //**************************************************************************************************/
 
 //! Constructor
-Graph::Graph(char **argv)
+Graph::Graph(int order, bool directed, bool edgeWeighted, bool vertexWeighted)
 {
-    archiveS = argv[1];
-    outString = argv[2];
-    isDirected = stoi(argv[3]);
-    edgeIsWeighted = stoi(argv[4]);
-    vertexIsWeighted = stoi(argv[5]);
-
-    readArchives(argv);
+    this->order = order;
+    this->isDirected = directed;
+    this->edgeIsWeighted = edgeWeighted;
+    this->vertexIsWeighted = vertexWeighted;
+    this->first = NULL;
+    this->last = NULL;
 }
 
 Graph::~Graph()
 {
 }
 
-void Graph::readArchives(char **argv) // Função para ler o arquivo de entrada e criar o grafo
-{
-
-    ifstream archive;
-    string line, stringVertex = "", temp = "";
-    int nVertex;
-
-    archive.open(archiveS);
-
-    if (archive.is_open())
-    {
-
-        getline(archive, stringVertex);
-        nVertex = stoi(stringVertex);
-
-        setVertex(nVertex);
-
-        vector<int> test;
-
-        while (getline(archive, temp))
-        {
-            stringstream sTeste(temp);
-
-            while (getline(sTeste, line, ' '))
-                test.push_back(stoi(line));
-
-            if (stoi(argv[4]) == 1)
-                this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)), test.at(2));
-            else
-                this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)));
-
-            test.clear();
-        }
-    }
-    else
-        cout << "Nao foi possivel abrir o arquivo." << endl;
-
-    order = nVertex;
-}
-
 void Graph::connectVertex(Vertex *a, Vertex *b) // Função para conectar dois vertices
 {
-    a->setNextEdge(b->getID());
+    a->setNextEdge(b->getID(), &edgeNumber);
     if (!isDirected)
-        b->setNextEdge(a->getID());
+    {
+        b->setNextEdge(a->getID(), &edgeNumber);
+        edgeNumber -= 1;
+    }
 }
 
 void Graph::connectVertex(Vertex *a, Vertex *b, int weight) // Função para conectar dois vertices com peso
 {
-    a->setNextEdge(b->getID(), weight);
+    a->setNextEdge(b->getID(), weight, &edgeNumber);
     if (!isDirected)
-        b->setNextEdge(a->getID(), weight);
+    {
+        b->setNextEdge(a->getID(), weight, &edgeNumber);
+        edgeNumber -= 1;
+    }
 }
 
 void Graph::setVertex(int nVertex) // Função para criar os vertices
@@ -322,7 +287,7 @@ void Graph::outFileArvCam(vector<string> *grafoS)
     system("dot -Tpng arvCam.dot -o arvCam.png");
 }
 
-void Graph::getVerticeInduzido()
+Graph *Graph::getVerticeInduzido()
 {
     cout << "\nVocê deseja rodar para o Grafo inteiro ou para um subgrafo?" << endl;
     cout << "1 - Grafo inteiro\n2 - Subgrafo\nSua opção: ";
@@ -345,35 +310,35 @@ void Graph::getVerticeInduzido()
         stringstream ss(aux);
         while (getline(ss, aux, ';'))
         {
-            if (this->searchNode(stoi(aux)))
+            if (this->getVertexByID(stoi(aux)))
                 idV.push_back(stoi(aux));
             else
                 cout << "O vértice " << aux << " não está no Grafo" << endl;
         }
 
         // Criar o subgrafo vértice induzido
-        Graph *subgrafo = new Graph(idvertices.size(), this->getDirected(), this->getWeightedEdge(), this->getWeightedVertex());
+        Graph *subgrafo = new Graph(idV.size(), this->getDirected(), this->getWeightedEdge(), this->getWeightedVertex());
 
         // Inserindo as arestas correspondentes no subgrafo
-        this->cleanVisited();
-        for (int i = 0; i < idvertices.size(); i++)
+        this->clearVertex();
+        for (int i = 0; i < idV.size(); i++)
         {
-            for (int j = i + 1; j < idvertices.size(); j++)
+            for (int j = i + 1; j < idV.size(); j++)
 
                 // Verificar se a aresta realmente existe no grafo original
-                if ((!this->getNode(idvertices[j])->getVisited()) && this->getNode(idvertices[i])->searchEdge(idvertices[j]))
+                if ((!this->getVertexByID(idV[j])->getVisited()) && this->getVertexByID(idV[i])->searchEdge(idV[j]))
                 {
-                    Edge *aux = this->getNode(idvertices[i])->getEdge(idvertices[j]);
-                    subgrafo->insertEdge(idvertices[i], idvertices[j], aux->getWeight());
+                    Edge *aux = this->getVertexByID(idV[i])->getEdgeByID(idV[j]);
+                    subgrafo->connectVertex(getVertexByID(idV[i]), getVertexByID(idV[j]), aux->getWeight());
                 }
                 else
-                    subgrafo->insertNode(idvertices[j]);
+                    subgrafo->insertVertex(idV[j]);
 
-            this->getNode(idvertices[i])->setVisited(true);
+            this->getVertexByID(idV[i])->setVisited(true);
         }
 
         cout << "\nO Subgrafo X foi gerado com sucesso! ";
-        cout << "(Ordem = " << subgrafo->getOrder() << " e Num de Arestas = " << subgrafo->getNumberEdges() << ")" << endl;
+        cout << "(Ordem = " << subgrafo->getOrder() << " e Num de Arestas = " << subgrafo->getEdgeNumber() << ")" << endl;
 
         return subgrafo;
     }
@@ -381,7 +346,7 @@ void Graph::getVerticeInduzido()
         return this;
 }
 
-float Graph::camMinD()
+/* float Graph::camMinD()
 {
     ofstream outFile;
     outFile.open(outString);
@@ -489,10 +454,30 @@ float Graph::camMinD()
     else
     {
 
-        if (noSource == nullptr)
+        if (vertexSource == nullptr)
             cout << "Source node não existe nesse grafo" << endl;
         if (noTarget == nullptr)
             cout << "Target node não existe nesse grafo" << endl;
         return -1;
     }
+} */
+
+void Graph::insertVertex(int id)
+{
+    // confere se o grafo tem vertices
+    if (this->first != nullptr)
+    {
+        Vertex *newVertex = new Vertex(id);
+        newVertex->setPosition(this->position);
+        this->last->setNextVertex(newVertex);
+        this->last = newVertex;
+    }
+    else
+    {
+        Vertex *newVertex = new Vertex(id);
+        newVertex->setPosition(this->position);
+        this->first = newVertex;
+        this->last = newVertex;
+    }
+    this->position = this->position + 1;
 }

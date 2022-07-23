@@ -10,7 +10,9 @@ argv[4] = aresta ponderada;
 argv[5] = nó ponderado
 */
 
+Graph *readArchives(char **argv);
 void menu(Graph *g);
+
 int main(int argc, char **argv)
 {
   /* if(argc != 6){
@@ -18,7 +20,8 @@ int main(int argc, char **argv)
       return -1;
   } */
 
-  Graph *g = new Graph(argv);
+  Graph *g = readArchives(argv);
+  g->setOutString(argv[2]);
 
   menu(g);
 
@@ -65,17 +68,17 @@ void menu(Graph *g)
       /*  g->function() */;
     break;
   case '5':
-    g->camMinD();
+    /* g->camMinD(); */
     break;
   case '6':
-    g->camMinF();
+    /* g->camMinF(); */
     break;
   case '7':
     cout << "\nPara essa função, é necessário um subgrafo vértice induzido" << endl;
-    g->agmPrim(g->getVerticeInduzido());
+    g->getVerticeInduzido();
     break;
   case '8':
-    g->agmKruskal();
+    /* g->agmKruskal(); */
     break;
   case '9':
     g->arvoreCaminhamento();
@@ -85,4 +88,43 @@ void menu(Graph *g)
   }
 
   menu(g);
+}
+
+Graph *readArchives(char **argv) // Função para ler o arquivo de entrada e criar o grafo
+{
+  ifstream archive;
+  string line, stringVertex = "", temp = "";
+  int nVertex;
+
+  archive.open(argv[1]);
+
+  if (archive.is_open())
+  {
+
+    getline(archive, stringVertex);
+    Graph *graph = new Graph(stoi(stringVertex), stoi(argv[3]), stoi(argv[4]), stoi(argv[5]));
+    graph->setVertex(stoi(stringVertex));
+
+    vector<int> test;
+
+    while (getline(archive, temp))
+    {
+      stringstream sTeste(temp);
+
+      while (getline(sTeste, line, ' '))
+        test.push_back(stoi(line));
+
+      if (stoi(argv[4]) == 1)
+        graph->connectVertex(graph->getVertexByID(test.at(0)), graph->getVertexByID(test.at(1)), test.at(2));
+      else
+        graph->connectVertex(graph->getVertexByID(test.at(0)), graph->getVertexByID(test.at(1)));
+
+      test.clear();
+    }
+    return graph;
+  }
+  else
+    cout << "Nao foi possivel abrir o arquivo." << endl;
+
+  return nullptr;
 }
