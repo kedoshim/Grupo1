@@ -287,7 +287,7 @@ void Graph::outFileArvCam(vector<string> *grafoS)
     outFile << "}\n";
 
     outDot.close();
-    system("dot -Tpng arvCam.dot -o arvCam.png");
+    system("dot -Tpng output.dot -o output.png");
 }
 
 Graph *Graph::getVerticeInduzido()
@@ -486,62 +486,68 @@ void Graph::insertVertex(int id)
 }
 
 void Graph::agmKruskal(Graph *g)
-{   
-    Agm *agm = new Agm();             // Criando o conjunto solucao das arestas com menor peso
-    vector<Edge*> arestasAux;      // Criando vetor que guarda as arestas
+{
+    Agm *agm = new Agm();      // Criando o conjunto solucao das arestas com menor peso
+    vector<Edge *> arestasAux; // Criando vetor que guarda as arestas
     int *ciclo;
-    ciclo = new int [arestasGrafo.size()];
+    ciclo = new int[arestasGrafo.size()];
 
-    // Atribuindo as arestas do grafo no vetor que sera ordenado 
-    for (auto  i = arestasGrafo.begin(); i != arestasGrafo.end(); i++){    
-        Edge* auxs = *i;
+    // Atribuindo as arestas do grafo no vetor que sera ordenado
+    for (auto i = arestasGrafo.begin(); i != arestasGrafo.end(); i++)
+    {
+        Edge *auxs = *i;
         arestasAux.push_back(auxs);
-    }  
-    
-    Edge* aux = NULL;
+    }
+
+    Edge *aux = NULL;
 
     // Ordenar as arestas conforme o peso
-    for(int i  = arestasAux.size() - 1 ;i >= 0 ;i--){
-        for(int j = 0;j < i;j++){
-            if(arestasAux[j]->getWeight() > arestasAux[j+1]->getWeight()){
+    for (int i = arestasAux.size() - 1; i >= 0; i--)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (arestasAux[j]->getWeight() > arestasAux[j + 1]->getWeight())
+            {
                 aux = arestasAux[j];
                 arestasAux[j] = arestasAux[j + 1];
-                arestasAux[j + 1] = aux;    
+                arestasAux[j + 1] = aux;
             }
         }
-    } 
+    }
 
-    for (int i = 0;i < arestasAux.size();i++){
+    for (int i = 0; i < arestasAux.size(); i++)
+    {
         ciclo[i] = i;
     }
 
-    for (auto  i = arestasAux.begin(); i != arestasAux.end(); i++){
-        Edge*  j       = *i;
+    for (auto i = arestasAux.begin(); i != arestasAux.end(); i++)
+    {
+        Edge *j = *i;
         // Detectando se com esta aresta forma ciclo:
-		if ( pai(j->getID(), ciclo) != pai(j->getNext(), ciclo)){ 
-			unir(j->getID(), j->getNext(), ciclo);
+        if (pai(j->getID(), ciclo) != pai(j->getNext(), ciclo))
+        {
+            unir(j->getID(), j->getNext(), ciclo);
 
-            agm->insereAresta(j);       // Insere aresta na arvore agm 
-		}
-    
+            agm->insereAresta(j); // Insere aresta na arvore agm
+        }
     }
     delete[] ciclo;
     return agm;
-
-
-    
 }
 // Funcao que uni o pai de dois vertices no ciclo para descobrir se forma ciclo
-void Graph::unir(int v1,int v2, int *ciclo){
+void Graph::unir(int v1, int v2, int *ciclo)
+{
     ciclo[pai(v1, ciclo)] = pai(v2, ciclo);
 }
 
-int Graph::pai(int v, int *ciclo){
-     if (ciclo[v] == v){
+int Graph::pai(int v, int *ciclo)
+{
+    if (ciclo[v] == v)
+    {
         return v;
-	}
- 
+    }
+
     ciclo[v] = pai(ciclo[v], ciclo);
- 
+
     return ciclo[v];
 }
