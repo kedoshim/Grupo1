@@ -530,11 +530,11 @@ void Graph::agrupamentoLocal()
     {
         pairs = pairs / 2;
     }
-    coeficiente = grau / pairs;
-    coeficiente = coeficiente * 100;
 
-    std::cout << "\nO coeficiente de agrupamento local : " << coeficiente << "%"
+    coeficiente = grau / pairs;
+
+    std::cout << "\nCoeficiente de agrupamento local : " << coeficiente
               << "\n\n";
-    outFile << "\nO coeficiente de agrupamento local : " << coeficiente << "%"
+    outFile << "\nCoeficiente de agrupamento local : " << coeficiente
             << "\n\n";
 }

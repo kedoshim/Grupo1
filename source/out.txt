@@ -1,0 +1,3 @@
+2 3 4 5 
+O coeficiente de agrupamento local : 1.33333
+
