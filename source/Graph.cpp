@@ -96,7 +96,7 @@ Vertex *Graph::getVertexByID(int id) // Função para retornar o vertice pelo ID
 int Graph::getVertexPower(Vertex *a){
     Edge *e;
     int i;
-    for(e=a->getEdge;e!=nullptr;e=e->getNext)i++;
+    for(e=a->getEdge();e!=nullptr;e=e->getNext())i++;
 
     return i;
 }
@@ -248,25 +248,28 @@ void Graph::agrupamentoLocal(){
     float coeficiente;
 
     std::cout << "\n";
-    std::cout << "Digite o ID do vertice inicial: ";
+    std::cout << "Digite o ID do vertice: ";
     std::cin >> id;
     std::cout << std::endl;
 
-    Vertex *vertex= getVertexByID(id);
-    Vertex *v;
+    Vertex *vertex=nullptr;
 
-    Edge *e;
-    std::vector adjacent<int>;
+    vertex=getVertexByID(id);
+    Vertex *v=nullptr;
+    int size;
+    Edge *e=nullptr;
+    std::vector<int> adjacent(20);
     float pairs=0;
-    for(e=a->getEdge;e!=nullptr;e=e->getNext){
+    for(e=vertex->getEdge();e!=nullptr;e=e->getNext()){
         grau++;
-        adjacent.push_back(e->getID);
+        adjacent.push_back(e->getID());
     }
-    for(int i=0;i<adjancent.size;i++){
-        v=getVertexByID(adjacent.operator[i]);
-        for(e=v->getEdge;e!=nullptr;e=e->getNext){
-            for(int j=0;j<adjacent.size;j++){
-                if(e->getID==adjacent.operator[j]&&)
+    for(int i=0;i<static_cast<int>(adjacent.size());i++){
+        v=getVertexByID(adjacent[i]);
+        for(e=v->getEdge();e!=nullptr;e=e->getNext()){
+            size=adjacent.size();
+            for(int j=0;j<size;j++){
+                if(e->getID()==adjacent[j])
                     pairs++;
             }
         }   
@@ -283,7 +286,7 @@ void Graph::agrupamentoLocal(){
 
 void Graph::agrupamentoGlobal(){}
 
-void Graph::Djkstra(){
+/*void Graph::Djkstra(){
 
     std::string IDa,IDb;
     int ida,idb
@@ -322,7 +325,7 @@ void Graph::Djkstra(){
 
         int v,c,id,peso;
 
-        id=ida
+        id=ida;
 
         for(int i=0;i<nVertex-1;i++){
 
@@ -351,7 +354,7 @@ void Graph::Djkstra(){
                         distance[v] = (distance[id] + peso); //Atualiza a distância
                         fp.push(make_pair(distance[v], v)); //Adiciona o vertice na fila de prioridade
                     }
-                    edge = edge->getNextEdge(); //Avança para o a proxima aresta do vertice
+                    edge = edge->getNext(); //Avança para o a proxima aresta do vertice
 
         /*for(edge=vertex->getEdge();edge != null; edge=edge->getNext){
             distance[vertex]=edge->getWeight;
@@ -360,10 +363,11 @@ void Graph::Djkstra(){
         for(int i=0; i<nVertex;i++){
             if(visited[i]==false&&distance[i]>menor){
                 menor=distance[i];
-                aux=i;*/
+                aux=i;
     
         }
     }
+        }
 
     }
-}
+}*/

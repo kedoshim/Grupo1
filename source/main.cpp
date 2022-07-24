@@ -49,7 +49,8 @@ void menu(Graph *g)
     g->fechoTransitivoIndireto();
     break;
   case '3':
-      g->agrupamentoLocal();
+    g->agrupamentoLocal();
+    std::cout <<"in";
     break;
   case '4':
       /*  g->function() */;

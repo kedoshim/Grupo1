@@ -6,16 +6,16 @@
       "type": "cppdbg",
       "request": "launch",
       "args": [
-        "grafo_10000_8.txt",
+        "teste.txt",
         "out.txt",
-        "1",
+        "0",
         "0",
         "0"
       ],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/diasj/OneDrive/Documentos/Grafos/Grupo1/source",
-      "program": "c:/Users/diasj/OneDrive/Documentos/Grafos/Grupo1/source/build/Debug/outDebug",
+      "cwd": "c:/Users/Abraão/Programas/Grafos/Grupo1/source",
+      "program": "c:/Users/Abraão/Programas/Grafos/Grupo1/source/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
