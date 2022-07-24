@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <string>
 #include "../headers/Graph.h"
 
 Graph::Graph(char **argv)
@@ -243,16 +242,16 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
               << arestasR << "}\n\n";
 }
 
-void Graph::agrupamentoLocal(){
-    int id=0;
+void Graph::agrupamentoLocal(int id){
+    //int id=0;
     int grau=0;
     float coeficiente;
-
+/*
     std::cout << "\n";
     std::cout << "Digite o ID do vertice: ";
     std::cin >> id;
     std::cout << std::endl;
-
+*/
     Vertex *vertex=nullptr;
 
     vertex=getVertexByID(id);
@@ -289,8 +288,21 @@ void Graph::agrupamentoLocal(){
 
 }
 
-void Graph::agrupamentoGlobal(){
+void Graph::agrupamentoGlobal(Graph* g ){
 
+
+    float coefGlobal;
+    float somaLocal;
+    int numVertex;
+    Vertex *v=nullptr;
+    std::vector<int> vertex;
+
+    for(v=v->getEdge();v!=nullptr;v=v->getNext()){
+        numVertex++;
+        adjacent.push_back(e->getID());
+    }    
+
+    coefGlobal =  
 
 
 

@@ -61,14 +61,11 @@ public:
     void percorreVertices(Vertex *v, bool arestasRetorno);
     void percorreVertices(Vertex *v);
     void arvoreCaminhamento();
-<<<<<<< HEAD
     void agrupamentoLocal();
     void agrupamentoGlobal();
     void Djkstra();
     void Floyd(Vertex *a, Vertex *b);
-=======
     void auxArvCam(Vertex *v, vector<int> *vec, vector<int> *returnE, vector<string> *grafoS);
     void outFileArvCam(vector<string> *grafoS);
     void insertVertex(int id);
->>>>>>> jongas
 };
