@@ -50,7 +50,6 @@ void menu(Graph *g)
     break;
   case '3':
     g->agrupamentoLocal();
-    std::cout <<"in";
     break;
   case '4':
       /*  g->function() */;

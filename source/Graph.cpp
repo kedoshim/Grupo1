@@ -173,7 +173,7 @@ void Graph::fechoTransitivoDireto() // Função para calcular o fecho transitivo
 
     std::cout << "{ ";
 
-    for (i; i != NULL; i = i->getNext())
+    for (; i != NULL; i = i->getNext())
     {
         if (i->getVisited())
             s += std::to_string(i->getID()) + " ";
@@ -203,7 +203,7 @@ void Graph::fechoTransitivoIndireto() // Função para calcular o fecho transiti
 
     std::cout << "{ ";
 
-    for (i; i != NULL; i = i->getNext())
+    for (; i != NULL; i = i->getNext())
     {
         for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
         {
@@ -243,8 +243,8 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
 }
 
 void Graph::agrupamentoLocal(){
-    int id;
-    int grau;
+    int id=0;
+    int grau=0;
     float coeficiente;
 
     std::cout << "\n";
@@ -256,13 +256,17 @@ void Graph::agrupamentoLocal(){
 
     vertex=getVertexByID(id);
     Vertex *v=nullptr;
-    int size;
+    int size=0;
     Edge *e=nullptr;
-    std::vector<int> adjacent(20);
+    std::vector<int> adjacent;
     float pairs=0;
     for(e=vertex->getEdge();e!=nullptr;e=e->getNext()){
         grau++;
         adjacent.push_back(e->getID());
+    }
+    std::cout <<"grau:"<<grau<<std::endl;
+    for(int i:adjacent){
+        std::cout<<i;
     }
     for(int i=0;i<static_cast<int>(adjacent.size());i++){
         v=getVertexByID(adjacent[i]);
@@ -274,9 +278,11 @@ void Graph::agrupamentoLocal(){
             }
         }   
     }
+    if(!getEdgeIsWeighted()){pairs=pairs/2;}
     coeficiente=grau/pairs;
-
-    std::cout << "O coeficiente de agrupamento local é: "<<coeficiente<<std::endl;
+    coeficiente=coeficiente*100;
+    std::cout<<"pairs:"<<pairs<<std::endl;
+    std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<"%"<<std::endl;
 
 
     
