@@ -141,7 +141,7 @@ void Graph::fechoTransitivoDireto(int id)
         }
     }
 
-    cout << "\n}\n";
+    cout << "\n}\n\n";
 
     if (input == 1)
         outFile << "}\n";
@@ -271,7 +271,7 @@ void Graph::outFileArvCam(vector<string> *grafoS)
     ofstream outFile;
     outFile.open(outString);
 
-    outDot.open("arvCam.dot", ios::out | ios::trunc);
+    outDot.open("output.dot", ios::out | ios::trunc);
 
     outDot << "digraph{\n";
     outFile << "digraph{\n";
@@ -284,7 +284,7 @@ void Graph::outFileArvCam(vector<string> *grafoS)
     outFile << "}\n";
 
     outDot.close();
-    system("dot -Tpng arvCam.dot -o arvCam.png");
+    system("dot -Tpng output.dot -o output.png");
 }
 
 Graph *Graph::getVerticeInduzido()

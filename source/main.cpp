@@ -15,10 +15,10 @@ void menu(Graph *g);
 
 int main(int argc, char **argv)
 {
-  /* if(argc != 6){
+  if(argc != 6){
       cout << "Numero errado de argumentos" << endl;
       return -1;
-  } */
+  }
 
   Graph *g = readArchives(argv);
   g->setOutString(argv[2]);
