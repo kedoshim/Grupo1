@@ -31,8 +31,8 @@ public:
     void percorreVertices(Vertex *v, bool arestasRetorno);
     void percorreVertices(Vertex *v);
     void arvoreCaminhamento();
-    void agrupamentoLocal();
-    void agrupamentoGlobal();
+    void agrupamentoLocal(int id);
+    void agrupamentoGlobal(Graph* g);
     void Djkstra();
     void Floyd(Vertex *a, Vertex *b);
 };
