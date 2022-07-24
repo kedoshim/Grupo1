@@ -264,7 +264,6 @@ void Graph::agrupamentoLocal(){
         grau++;
         adjacent.push_back(e->getID());
     }
-    std::cout <<"grau:"<<grau<<std::endl;
     for(int i:adjacent){
         std::cout<<i;
     }
@@ -281,7 +280,6 @@ void Graph::agrupamentoLocal(){
     if(!getEdgeIsWeighted()){pairs=pairs/2;}
     coeficiente=grau/pairs;
     coeficiente=coeficiente*100;
-    std::cout<<"pairs:"<<pairs<<std::endl;
     std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<"%"<<std::endl;
 
 
