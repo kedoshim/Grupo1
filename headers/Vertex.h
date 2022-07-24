@@ -10,6 +10,7 @@ private:
     Vertex *next = NULL;
     Edge *nextEdge = NULL;
     int visitedBefore = 0;
+    int posicaoVertice = 0;
 
 public:
     Vertex(int idVertex);
@@ -22,9 +23,16 @@ public:
     bool getVisited() { return this->wasVisited; };
     int getID() { return id; };
     Edge *getEdge() { return nextEdge; };
-    void setNextEdge(int vID);
-    void setNextEdge(int vID, int weightVertex);
+    Edge *getEdgeByID(int targetID);
+    void setNextVertex(Vertex *v);
+    void insertEdge();
+    void setPosition(int pos) { this->posicaoVertice = pos; };
+    void setNextEdge(int vID, int *edgeNumber);
+    void setNextEdge(int vID, int weightVertex, int *edgeNumber);
     void setVisitedBefore(int vID) { this->visitedBefore = vID; };
     int getVisitedBefore() { return this->visitedBefore; };
+    void setposicaoVertice(int pos) { this->posicaoVertice = pos; };
+    int getposicaoVertice() { return this->posicaoVertice; };
+    bool searchEdge(int edgeID);
     ~Vertex();
 };

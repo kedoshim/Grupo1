@@ -96,12 +96,16 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "valarray": "cpp",
+<<<<<<< HEAD
     "any": "cpp",
     "bit": "cpp",
     "charconv": "cpp",
     "optional": "cpp",
     "string_view": "cpp",
     "variant": "cpp"
+=======
+    "string_view": "cpp"
+>>>>>>> jongas
   },
   "C_Cpp_Runner.compilerArgs": [],
   "C_Cpp.errorSquiggles": "Disabled"
