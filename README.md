@@ -26,10 +26,16 @@
 Utilizando o Makefile:
 
 Criando o arquivo ./execGrupo1.exe e os arquivos .o
+
+```
 Make
+```
 
 Excluindo o arquivo ./execGrupo1.exe e os arquivos. o
+
+```
 Make clean
+```
 
 ## Instruções para a execução
 
