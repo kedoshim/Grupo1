@@ -3,9 +3,22 @@
 
 Graph::Graph(char **argv)
 {
+    isDirectioned = std::stoi(argv[3]);
+    edgeIsWeighted = std::stoi(argv[4]);
+    vertexIsWeighted = std::stoi(argv[5]);
+
+    readArchives(argv);
+}
+
+Graph::~Graph()
+{
+}
+
+void Graph::readArchives(char **argv) // Função para ler o arquivo de entrada e criar o grafo
+{
+
     std::ifstream archive;
     std::string line, stringVertex = "", temp = "";
-    int nVertex;
 
     archive.open(argv[1]);
 
@@ -26,10 +39,10 @@ Graph::Graph(char **argv)
             while (getline(sTeste, line, ' '))
                 test.push_back(stoi(line));
 
-            /* if (std::stoi(argv[3]) == 1)
+            if (std::stoi(argv[4]) == 1)
                 this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)), test.at(2));
-            else */
-            this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)));
+            else
+                this->connectVertex(getVertexByID(test.at(0)), getVertexByID(test.at(1)));
 
             test.clear();
         }
@@ -38,23 +51,23 @@ Graph::Graph(char **argv)
         std::cout << "Nao foi possivel abrir o arquivo." << std::endl;
 }
 
-Graph::~Graph()
-{
-}
-
-void Graph::connectVertex(Vertex *a, Vertex *b)
+void Graph::connectVertex(Vertex *a, Vertex *b) // Função para conectar dois vertices
 {
     a->setNextEdge(b->getID());
-    b->setNextEdge(a->getID());
+    if (!isDirectioned)
+        b->setNextEdge(a->getID());
 }
 
-void Graph::connectVertex(Vertex *a, Vertex *b, int weight)
+void Graph::connectVertex(Vertex *a, Vertex *b, int weight) // Função para conectar dois vertices com peso
 {
-    a->setNextEdge(b->getID());
-    b->setNextEdge(a->getID());
+    a->setNextEdge(b->getID(), weight);
+    if (!isDirectioned)
+        b->setNextEdge(a->getID(), weight);
 }
 
-void Graph::setVertex(int nVertex)
+int Graph::getnVertex(){return nVertex;}
+
+void Graph::setVertex(int nVertex) // Função para criar os vertices
 {
     Vertex *v = NULL;
     first = new Vertex(1);
@@ -69,7 +82,7 @@ void Graph::setVertex(int nVertex)
     }
 }
 
-Vertex *Graph::getVertexByID(int id)
+Vertex *Graph::getVertexByID(int id) // Função para retornar o vertice pelo ID
 {
     for (Vertex *v = first; v != NULL; v = v->getNext())
     {
@@ -80,15 +93,285 @@ Vertex *Graph::getVertexByID(int id)
     return NULL;
 }
 
-void Graph::imprimeAdjacentes()
+int Graph::getVertexPower(Vertex *a){
+    Edge *e;
+    int i;
+    for(e=a->getEdge();e!=nullptr;e=e->getNext())i++;
+
+    return i;
+}
+
+Vertex *Graph::getFirst() // Função para retornar o primeiro vertice
 {
-    for (Vertex *i = first; i != NULL; i = i->getNext())
+    return first;
+}
+
+void Graph::percorreVertices(Vertex *v, bool arestasRetorno) // Função para percorrer os vertices destacando as arestas de retorno
+{
+    if (!v->getVisited())
     {
-        std::cout << "Vertex " << i->getID() << ": ";
+        v->setVisited(true);
+    }
 
-        for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
-            std::cout << j->getID() << ' ';
+    if (arestasRetorno)
+        arvoreC += std::to_string(v->getID()) + " ";
 
-        std::cout << std::endl;
+    for (Edge *e = v->getEdge(); e != NULL; e = e->getNext())
+    {
+        Vertex *w = getVertexByID(e->getID());
+
+        // if a vertex was already visited, add it to the "arestasR" string
+        if (w->getVisited())
+        {
+            if ((arestasRetorno && w->getID() > v->getID()) && w->getID() != v->getVisitedBefore())
+                arestasR += std::to_string(w->getID()) + " -> " + std::to_string(v->getID()) + "\n";
+        }
+        else
+        {
+            w->setVisitedBefore(v->getID());
+            percorreVertices(w, arestasRetorno);
+        }
     }
 }
+
+void Graph::percorreVertices(Vertex *v) // Função para percorrer os vertices
+{
+    if (!v->getVisited())
+        v->setVisited(true);
+
+    for (Edge *e = v->getEdge(); e != NULL; e = e->getNext())
+    {
+        Vertex *w = getVertexByID(e->getID());
+        percorreVertices(w);
+    }
+}
+
+void Graph::clearVertex() // Função para limpar os vertices
+{
+    for (Vertex *v = first; v != NULL; v = v->getNext())
+        v->setVisited(false);
+}
+
+void Graph::fechoTransitivoDireto() // Função para calcular o fecho transitivo direto
+{
+    int id;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+    std::cout << std::endl;
+
+    clearVertex();
+    Vertex *i = this->getVertexByID(id);
+
+    percorreVertices(i);
+
+    std::cout << "Fecho transitivo direto do vertice " << i->getID() << ": ";
+
+    std::cout << std::endl;
+
+    std::cout << "{ ";
+
+    for (; i != NULL; i = i->getNext())
+    {
+        if (i->getVisited())
+            s += std::to_string(i->getID()) + " ";
+    }
+
+    s += "}\n";
+
+    std::cout << s << "\n\n";
+}
+
+void Graph::fechoTransitivoIndireto() // Função para calcular o fecho transitivo indireto
+{
+    int id;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+    std::cout << std::endl;
+
+    clearVertex();
+    Vertex *i = this->getFirst(), *v = this->getVertexByID(id);
+
+    std::cout << "Fecho transitivo indireto do vertice " << v->getID() << ": ";
+
+    std::cout << std::endl;
+
+    std::cout << "{ ";
+
+    for (; i != NULL; i = i->getNext())
+    {
+        for (Edge *j = i->getEdge(); j != NULL; j = j->getNext())
+        {
+            if (j->getID() == v->getID())
+            {
+                s += std::to_string(i->getID()) + " ";
+                break;
+            }
+        }
+    }
+
+    s += "}\n";
+
+    std::cout << s << "\n\n";
+}
+
+void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore de caminhamento 
+{
+    int id;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+
+    Vertex *v = this->getVertexByID(id);
+
+    clearVertex();
+    percorreVertices(v, true);
+
+    std::cout << "\nArvore de caminhamento do vertice " << v->getID() << ": ";
+    std::cout << std::endl;
+    std::cout << "{ " << arvoreC << "}\n\n";
+
+    std::cout << "Arestas de retorno: \n{\n"
+              << arestasR << "}\n\n";
+}
+
+void Graph::agrupamentoLocal(){
+    int id=0;
+    int grau=0;
+    float coeficiente;
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+    std::cout << std::endl;
+
+    Vertex *vertex=nullptr;
+
+    vertex=getVertexByID(id);
+    Vertex *v=nullptr;
+    int size=0;
+    Edge *e=nullptr;
+    std::vector<int> adjacent;
+    float pairs=0;
+    for(e=vertex->getEdge();e!=nullptr;e=e->getNext()){
+        grau++;
+        adjacent.push_back(e->getID());
+    }
+    for(int i:adjacent){
+        std::cout<<i;
+    }
+    for(int i=0;i<static_cast<int>(adjacent.size());i++){
+        v=getVertexByID(adjacent[i]);
+        for(e=v->getEdge();e!=nullptr;e=e->getNext()){
+            size=adjacent.size();
+            for(int j=0;j<size;j++){
+                if(e->getID()==adjacent[j])
+                    pairs++;
+            }
+        }   
+    }
+    if(!getEdgeIsWeighted()){pairs=pairs/2;}
+    coeficiente=grau/pairs;
+    coeficiente=coeficiente*100;
+    std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<"%"<<std::endl;
+
+
+    
+
+
+}
+
+void Graph::agrupamentoGlobal(){}
+
+/*void Graph::Djkstra(){
+
+    std::string IDa,IDb;
+    int ida,idb
+    Vertex *a,*b;
+    int aux;
+    std::string s = "";
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice inicial: ";
+    std::cin >> IDa;
+    std::cout << "Digite o ID do vertice final: ";
+    std::cin >> IDb;
+    std::cout << std::endl;
+    ida= stoi(IDa);
+    idb= stoi(IDb);
+
+    clearVertex();
+
+    a=getVertexByID(ida);
+    b=getVertexByID(idb);
+    
+    if (a!= nullptr && b!= nullptr)
+    { 
+        Edge* edge=nullptr;
+        Vertex* vertex=a;
+        int *distance = new int[nVertex];
+        bool *visited= new bool[nVertex];
+        int *antec = new int [nVertex];
+
+        for(int i=0;i<nVertex;i++){
+            distance[i]=INFINITY;
+            visited[i]= false;
+        }
+        distance[a]=0;
+        visited[a]=true;
+
+        int v,c,id,peso;
+
+        id=ida;
+
+        for(int i=0;i<nVertex-1;i++){
+
+            if (visited[id] == false)
+            {
+                visited[id] = true; //Marca o vertice como visitado
+                node = getVertexByID(id);
+                if (node != nullptr) //Busca o no pela posição
+                    edge = vertex->getEdge();
+                else
+                    edge = nullptr; //Pega a primeira aresta do no
+
+                while (edge != nullptr)
+                { //Passa por todas as arestas do vertice u
+
+                    if (!getEdgeIsWeighted())
+                        peso = 1; //Para caso não haja pesso a distância será 1 por salto
+                    else
+                        peso = edge->getWeight();
+
+                    v = edge->getID(); //Pega a posição do no Target dessa aresta
+
+                    if (distance[v] > (distance[id] + peso))
+                    {                                           //Verifica se a distância é menor
+                        antec[v] = id;                         //Atualiza o antecessor
+                        distance[v] = (distance[id] + peso); //Atualiza a distância
+                        fp.push(make_pair(distance[v], v)); //Adiciona o vertice na fila de prioridade
+                    }
+                    edge = edge->getNext(); //Avança para o a proxima aresta do vertice
+
+        /*for(edge=vertex->getEdge();edge != null; edge=edge->getNext){
+            distance[vertex]=edge->getWeight;
+        }
+        int menor=INFINITY;
+        for(int i=0; i<nVertex;i++){
+            if(visited[i]==false&&distance[i]>menor){
+                menor=distance[i];
+                aux=i;
+    
+        }
+    }
+        }
+
+    }
+}*/
