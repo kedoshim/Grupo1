@@ -15,9 +15,10 @@ void menu(Graph *g);
 
 int main(int argc, char **argv)
 {
-  if(argc != 6){
-      cout << "Numero errado de argumentos" << endl;
-      return -1;
+  if (argc != 6)
+  {
+    cout << "Numero errado de argumentos" << endl;
+    return -1;
   }
 
   Graph *g = readArchives(argv);
@@ -62,7 +63,7 @@ void menu(Graph *g)
     g->fechoTransitivoIndireto(i);
     break;
   case '3':
-      /*  g->function() */;
+    g->agrupamentoLocal();
     break;
   case '4':
       /*  g->function() */;

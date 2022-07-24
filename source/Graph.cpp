@@ -481,3 +481,60 @@ void Graph::insertVertex(int id)
     }
     this->position = this->position + 1;
 }
+
+void Graph::agrupamentoLocal()
+{
+    ofstream outFile;
+    outFile.open(outString);
+    int id = 0;
+    int grau = 0;
+    float coeficiente;
+
+    std::cout << "\n";
+    std::cout << "Digite o ID do vertice: ";
+    std::cin >> id;
+    std::cout << std::endl;
+
+    Vertex *vertex = nullptr;
+
+    vertex = getVertexByID(id);
+    Vertex *v = nullptr;
+    int size = 0;
+    Edge *e = nullptr;
+    std::vector<int> adjacent;
+    float pairs = 0;
+    for (e = vertex->getEdge(); e != nullptr; e = e->getNext())
+    {
+        grau++;
+        adjacent.push_back(e->getID());
+    }
+    for (int i : adjacent)
+    {
+        std::cout << i << " ";
+        outFile << i << " ";
+    }
+    for (int i = 0; i < static_cast<int>(adjacent.size()); i++)
+    {
+        v = getVertexByID(adjacent[i]);
+        for (e = v->getEdge(); e != nullptr; e = e->getNext())
+        {
+            size = adjacent.size();
+            for (int j = 0; j < size; j++)
+            {
+                if (e->getID() == adjacent[j])
+                    pairs++;
+            }
+        }
+    }
+    if (!getWeightedEdge())
+    {
+        pairs = pairs / 2;
+    }
+    coeficiente = grau / pairs;
+    coeficiente = coeficiente * 100;
+
+    std::cout << "\nO coeficiente de agrupamento local : " << coeficiente << "%"
+              << "\n\n";
+    outFile << "\nO coeficiente de agrupamento local : " << coeficiente << "%"
+            << "\n\n";
+}
