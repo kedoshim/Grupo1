@@ -57,7 +57,7 @@ void menu(Graph *g)
     g->agrupamentoLocal(id);
     break;
   case '4':
-      /*  g->function() */;
+       g->agrupamentoGlobal() ;
     break;
   case '5':
       /*  g->function() */;

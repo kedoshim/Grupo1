@@ -264,8 +264,9 @@ float Graph::agrupamentoLocal(int id){
         grau++;
         adjacent.push_back(e->getID());
     }
+    std::cout<<"grau:"<<grau<<std::endl;
     for(int i:adjacent){
-        std::cout<<i;
+        std::cout<<i<<" ";
     }
     for(int i=0;i<static_cast<int>(adjacent.size());i++){
         v=getVertexByID(adjacent[i]);
@@ -288,19 +289,18 @@ float Graph::agrupamentoLocal(int id){
 
 }
 
-void Graph::agrupamentoGlobal(Graph* g){
+void Graph::agrupamentoGlobal(){
 
     float coefGlobal;
     float somaLocal;
     Vertex *v=nullptr;
 
-    for(v=g->getFirst();v!=nullptr;v=v->getNext()){
+    for(v=getFirst();v!=nullptr;v=v->getNext()){
         somaLocal+=agrupamentoLocal(v->getID());  
     }    
 
-    coefGlobal =  somaLocal/g->nVertex;
-    coefGlobal = coefGlobal*100;
-    std::cout << "O coeficiente de agrupamento médio do grafo : "<<coefGlobal<<"%"<<std::endl;
+    coefGlobal =  somaLocal/nVertex;
+    std::cout << "O coeficiente de agrupamento médio do grafo : "<<coefGlobal<<std::endl;
 
 
 
