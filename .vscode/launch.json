@@ -13,7 +13,7 @@
         "0"
       ],
       "stopAtEntry": false,
-      "externalConsole": true,
+      "externalConsole": false,
       "cwd": "c:/Users/Abraão/Programas/Grafos/Grupo1/source",
       "program": "c:/Users/Abraão/Programas/Grafos/Grupo1/source/build/Debug/outDebug",
       "MIMode": "gdb",

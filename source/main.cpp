@@ -28,8 +28,8 @@ void menu(Graph *g)
 {
   char input;
 
-  printf("1 - Fecho transitivo direto deste vertice\n");
-  printf("\n2 - Fecho transitivo indireto deste vertice\n");
+  printf("1 - Fecho transitivo direto de um vertice\n");
+  printf("\n2 - Fecho transitivo indireto de um vertice\n");
   printf("\n3 - Coeficiente de agrupamento local do vertice\n");
   printf("\n4 - Coeficiente de agrupamento medio do grafo\n");
   printf("\n5 - Caminho minimo entre dois vertices usando algoritmo de Djkstra\n");

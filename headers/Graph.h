@@ -19,6 +19,7 @@ public:
     void connectVertex(Vertex *a, Vertex *b, int weight);
     int getnVertex();
     bool getEdgeIsWeighted(){return edgeIsWeighted;};
+    bool getIsDirectioned(){return isDirectioned;};
     Vertex *getVertexByID(int id);
     Vertex *getFirst();
     int getVertexPower(Vertex *a);

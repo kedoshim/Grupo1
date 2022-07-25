@@ -264,10 +264,10 @@ float Graph::agrupamentoLocal(int id, bool print){
         grau++;
         adjacent.push_back(e->getID());
     }
-    //std::cout<<"grau:"<<grau<<std::endl;
-    /*for(int i:adjacent){
+    std::cout<<"grau:"<<grau<<std::endl;
+    for(int i:adjacent){
         std::cout<<i<<" ";
-    }*/
+    }
     for(int i=0;i<static_cast<int>(adjacent.size());i++){
         v=getVertexByID(adjacent[i]);
         for(e=v->getEdge();e!=nullptr;e=e->getNext()){
@@ -278,8 +278,9 @@ float Graph::agrupamentoLocal(int id, bool print){
             }
         }   
     }
-    if(!getEdgeIsWeighted()){pairs=pairs/2;}
+    if(!getIsDirectioned()){pairs=pairs/2;}
     coeficiente=grau/pairs;
+    std::cout<<"pares:"<<pairs<<std::endl;
     if(pairs==0){coeficiente=0;}
     if(print){
     std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<std::endl;}
