@@ -63,10 +63,13 @@ void menu(Graph *g)
     g->fechoTransitivoIndireto(i);
     break;
   case '3':
-    g->agrupamentoLocal();
+    cout << "Digite o ID do vertice: ";
+    cin >> i;
+    cout << endl;
+    g->agrupamentoLocal(i, true);
     break;
   case '4':
-      /*  g->function() */;
+    g->agrupamentoGlobal();
     break;
   case '5':
     /* g->camMinD(); */

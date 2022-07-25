@@ -482,19 +482,17 @@ void Graph::insertVertex(int id)
     this->position = this->position + 1;
 }
 
-void Graph::agrupamentoLocal()
+float Graph::agrupamentoLocal(int id, bool print)
 {
-    ofstream outFile;
-    outFile.open(outString);
-    int id = 0;
+    // int id=0;
     int grau = 0;
     float coeficiente;
-
-    std::cout << "\n";
-    std::cout << "Digite o ID do vertice: ";
-    std::cin >> id;
-    std::cout << std::endl;
-
+    /*
+        std::cout << "\n";
+        std::cout << "Digite o ID do vertice: ";
+        std::cin >> id;
+        std::cout << std::endl;
+    */
     Vertex *vertex = nullptr;
 
     vertex = getVertexByID(id);
@@ -508,10 +506,10 @@ void Graph::agrupamentoLocal()
         grau++;
         adjacent.push_back(e->getID());
     }
+    std::cout << "grau:" << grau << std::endl;
     for (int i : adjacent)
     {
         std::cout << i << " ";
-        outFile << i << " ";
     }
     for (int i = 0; i < static_cast<int>(adjacent.size()); i++)
     {
@@ -526,15 +524,35 @@ void Graph::agrupamentoLocal()
             }
         }
     }
-    if (!getWeightedEdge())
+    if (!getDirected())
     {
         pairs = pairs / 2;
     }
-
     coeficiente = grau / pairs;
+    std::cout << "pares:" << pairs << std::endl;
+    if (pairs == 0)
+    {
+        coeficiente = 0;
+    }
+    if (print)
+    {
+        std::cout << "O coeficiente de agrupamento local : " << coeficiente << std::endl;
+    }
+    return coeficiente;
+}
 
-    std::cout << "\nCoeficiente de agrupamento local : " << coeficiente
-              << "\n\n";
-    outFile << "\nCoeficiente de agrupamento local : " << coeficiente
-            << "\n\n";
+void Graph::agrupamentoGlobal()
+{
+
+    float coefGlobal;
+    float somaLocal;
+    Vertex *v = nullptr;
+
+    for (v = getFirst(); v != nullptr; v = v->getNext())
+    {
+        somaLocal += agrupamentoLocal(v->getID(), false);
+    }
+
+    coefGlobal = somaLocal / order;
+    std::cout << "O coeficiente de agrupamento medio do grafo : " << coefGlobal << std::endl;
 }

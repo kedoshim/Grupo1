@@ -38,7 +38,8 @@ public:
     Graph *getVerticeInduzido();
     int getEdgeNumber() { return edgeNumber; };
 
-    void agrupamentoLocal();
+    float agrupamentoLocal(int id, bool print);
+    void agrupamentoGlobal();
     float camMinD();
     void camMinF();
     void agmPrim(Graph *g);
