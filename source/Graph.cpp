@@ -242,7 +242,7 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
               << arestasR << "}\n\n";
 }
 
-void Graph::agrupamentoLocal(int id){
+float Graph::agrupamentoLocal(int id){
     //int id=0;
     int grau=0;
     float coeficiente;
@@ -281,14 +281,26 @@ void Graph::agrupamentoLocal(int id){
     coeficiente=grau/pairs;
     coeficiente=coeficiente*100;
     std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<"%"<<std::endl;
-
+    return coeficiente;
 
     
 
 
 }
 
-void Graph::agrupamentoGlobal(){
+void Graph::agrupamentoGlobal(Graph* g){
+
+    float coefGlobal;
+    float somaLocal;
+    Vertex *v=nullptr;
+
+    for(v=g->getFirst();v!=nullptr;v=v->getNext()){
+        somaLocal+=agrupamentoLocal(v->getID());  
+    }    
+
+    coefGlobal =  somaLocal/g->nVertex;
+    coefGlobal = coefGlobal*100;
+    std::cout << "O coeficiente de agrupamento médio do grafo : "<<coefGlobal<<"%"<<std::endl;
 
 
 
