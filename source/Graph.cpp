@@ -242,7 +242,7 @@ void Graph::arvoreCaminhamento() // Função para calcular e imprimir a arvore d
               << arestasR << "}\n\n";
 }
 
-float Graph::agrupamentoLocal(int id){
+float Graph::agrupamentoLocal(int id, bool print){
     //int id=0;
     int grau=0;
     float coeficiente;
@@ -264,10 +264,10 @@ float Graph::agrupamentoLocal(int id){
         grau++;
         adjacent.push_back(e->getID());
     }
-    std::cout<<"grau:"<<grau<<std::endl;
-    for(int i:adjacent){
+    //std::cout<<"grau:"<<grau<<std::endl;
+    /*for(int i:adjacent){
         std::cout<<i<<" ";
-    }
+    }*/
     for(int i=0;i<static_cast<int>(adjacent.size());i++){
         v=getVertexByID(adjacent[i]);
         for(e=v->getEdge();e!=nullptr;e=e->getNext()){
@@ -281,7 +281,8 @@ float Graph::agrupamentoLocal(int id){
     if(!getEdgeIsWeighted()){pairs=pairs/2;}
     coeficiente=grau/pairs;
     if(pairs==0){coeficiente=0;}
-    std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<std::endl;
+    if(print){
+    std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<std::endl;}
     return coeficiente;
 
     
@@ -296,11 +297,11 @@ void Graph::agrupamentoGlobal(){
     Vertex *v=nullptr;
 
     for(v=getFirst();v!=nullptr;v=v->getNext()){
-        somaLocal+=agrupamentoLocal(v->getID());  
+        somaLocal+=agrupamentoLocal(v->getID(),false);  
     }    
 
     coefGlobal =  somaLocal/nVertex;
-    std::cout << "O coeficiente de agrupamento médio do grafo : "<<coefGlobal<<std::endl;
+    std::cout << "O coeficiente de agrupamento medio do grafo : "<<coefGlobal<<std::endl;
 
 
 
@@ -377,7 +378,7 @@ void Graph::agrupamentoGlobal(){
                     }
                     edge = edge->getNext(); //Avança para o a proxima aresta do vertice
 
-        /*for(edge=vertex->getEdge();edge != null; edge=edge->getNext){
+        for(edge=vertex->getEdge();edge != null; edge=edge->getNext){
             distance[vertex]=edge->getWeight;
         }
         int menor=INFINITY;

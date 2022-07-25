@@ -54,7 +54,7 @@ void menu(Graph *g)
     std::cout << "Digite o ID do vertice: ";
     std::cin >> id;
     std::cout << std::endl;
-    g->agrupamentoLocal(id);
+    g->agrupamentoLocal(id,true);
     break;
   case '4':
        g->agrupamentoGlobal() ;
