@@ -10,10 +10,10 @@
         "out.txt",
         "1",
         "0",
-        "0]"
+        "0"
       ],
       "stopAtEntry": false,
-      "externalConsole": false,
+      "externalConsole": true,
       "cwd": "c:/Users/Abraão/Programas/Grafos/Grupo1/source",
       "program": "c:/Users/Abraão/Programas/Grafos/Grupo1/source/build/Debug/outDebug",
       "MIMode": "gdb",

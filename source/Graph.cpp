@@ -280,8 +280,8 @@ float Graph::agrupamentoLocal(int id){
     }
     if(!getEdgeIsWeighted()){pairs=pairs/2;}
     coeficiente=grau/pairs;
-    coeficiente=coeficiente*100;
-    std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<"%"<<std::endl;
+    if(pairs==0){coeficiente=0;}
+    std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<std::endl;
     return coeficiente;
 
     
