@@ -49,12 +49,7 @@ void menu(Graph *g)
     g->fechoTransitivoIndireto();
     break;
   case '3':
-  std::cout << "\n";
-    int id;
-    std::cout << "Digite o ID do vertice: ";
-    std::cin >> id;
-    std::cout << std::endl;
-    g->agrupamentoLocal(id,true);
+    g->agrupamentoLocal(0,true);
     break;
   case '4':
        g->agrupamentoGlobal() ;

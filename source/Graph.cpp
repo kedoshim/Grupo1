@@ -246,12 +246,16 @@ float Graph::agrupamentoLocal(int id, bool print){
     //int id=0;
     int grau=0;
     float coeficiente;
-/*
+    if(print){
     std::cout << "\n";
     std::cout << "Digite o ID do vertice: ";
     std::cin >> id;
     std::cout << std::endl;
-*/
+    }
+    if(getVertexByID(id)==NULL){
+        std::cout<<"Id nao existe!"<< std::endl;
+        return agrupamentoLocal(id,true);
+    }
     Vertex *vertex=nullptr;
 
     vertex=getVertexByID(id);
@@ -264,9 +268,9 @@ float Graph::agrupamentoLocal(int id, bool print){
         grau++;
         adjacent.push_back(e->getID());
     }
-    std::cout<<"grau:"<<grau<<std::endl;
+  //  std::cout<<"grau:"<<grau<<std::endl;
     for(int i:adjacent){
-        std::cout<<i<<" ";
+    //    std::cout<<i<<" ";
     }
     for(int i=0;i<static_cast<int>(adjacent.size());i++){
         v=getVertexByID(adjacent[i]);
@@ -278,9 +282,12 @@ float Graph::agrupamentoLocal(int id, bool print){
             }
         }   
     }
+    int arestasCompleto = (grau*(grau-1))/2;
+
     if(!getIsDirectioned()){pairs=pairs/2;}
-    coeficiente=grau/pairs;
-    std::cout<<"pares:"<<pairs<<std::endl;
+    if(getIsDirectioned()){arestasCompleto=arestasCompleto*2;}
+    coeficiente=pairs/arestasCompleto;
+//    std::cout<<"pares:"<<pairs<<std::endl;
     if(pairs==0){coeficiente=0;}
     if(print){
     std::cout << "O coeficiente de agrupamento local : "<<coeficiente<<std::endl;}
