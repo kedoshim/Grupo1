@@ -268,10 +268,6 @@ float Graph::agrupamentoLocal(int id, bool print){
         grau++;
         adjacent.push_back(e->getID());
     }
-  //  std::cout<<"grau:"<<grau<<std::endl;
-    for(int i:adjacent){
-    //    std::cout<<i<<" ";
-    }
     for(int i=0;i<static_cast<int>(adjacent.size());i++){
         v=getVertexByID(adjacent[i]);
         for(e=v->getEdge();e!=nullptr;e=e->getNext()){
@@ -310,10 +306,84 @@ void Graph::agrupamentoGlobal(){
 
     coefGlobal =  somaLocal/nVertex;
     std::cout << "O coeficiente de agrupamento medio do grafo : "<<coefGlobal<<std::endl;
+    
 
 
 
 
+}
+
+void Graph::Djkstra(){
+
+    int INF=2147483647;
+
+    int ida,idb;
+    int id;
+    int menor;
+    int peso=INF;
+    Vertex *v;
+    Edge *e;
+
+    std::cout<<"Digite o ID inicial:"<<std::endl;
+    std::cin>>ida;
+    
+    std::cout<<"Digite o ID final:"<<std::endl;
+    std::cin>>idb;
+
+    std::vector<int> inside;
+    std::vector<int> outside;
+    std::vector<int> distancia;
+    std::stack<int> antecessores;
+
+    inside.reserve(nVertex);
+    outside.reserve(nVertex);
+    distancia.reserve(nVertex);
+
+    if(!getEdgeIsWeighted()){peso=1;}
+
+    antecessores.push(ida);
+    std::cout<<"nVertex: "<<nVertex;  
+    
+    for(int i=0;i<nVertex;i++){
+        inside[i]=INF;
+        outside[i]=i;
+        distancia[i]=peso;
+    }
+    inside[ida]=ida;
+    outside[ida]=INF;
+
+    std::cout<<std::endl<<"escolhidos: ";
+
+    for(int i=0;i<=nVertex;i++){
+
+        id=antecessores.top();
+
+         std::cout<<id<<std::endl;
+
+        v=getVertexByID(id);
+        for(e=v->getEdge();e->getNext()!=nullptr;e=e->getNext()){
+
+            std::cout<<e->getID()<<" ";
+            peso=e->getWeight();
+            if(!getEdgeIsWeighted()){peso=1;}
+            if(distancia[id]+peso < distancia[e->getID()])
+                distancia[e->getID()]=distancia[id]+peso;
+        }
+        menor=INF;
+        for(int j:outside){
+            if(j!=INF&&distancia[j]<menor){
+                menor=j;
+            }
+        }
+        inside[menor]=menor;
+        outside[menor]=INF;
+        antecessores.push(menor);
+        
+    }
+    std::cout<<"Vetor distâncias:"<<std::endl;
+    for(int i=0;i<=nVertex;i++){
+        std::cout<<distancia[i]<<" ";
+    }
 }
 
 /*void Graph::Djkstra(){

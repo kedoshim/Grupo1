@@ -55,7 +55,7 @@ void menu(Graph *g)
        g->agrupamentoGlobal() ;
     break;
   case '5':
-      /*  g->function() */;
+      g->Djkstra();
     break;
   case '6':
       /*  g->function() */;
