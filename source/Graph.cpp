@@ -506,11 +506,11 @@ float Graph::agrupamentoLocal(int id, bool print)
         grau++;
         adjacent.push_back(e->getID());
     }
-    std::cout << "grau:" << grau << std::endl;
-    for (int i : adjacent)
+    /* std::cout << "grau:" << grau << std:: endl; */
+    /* for (int i : adjacent)
     {
         std::cout << i << " ";
-    }
+    } */
     for (int i = 0; i < static_cast<int>(adjacent.size()); i++)
     {
         v = getVertexByID(adjacent[i]);
@@ -529,14 +529,14 @@ float Graph::agrupamentoLocal(int id, bool print)
         pairs = pairs / 2;
     }
     coeficiente = grau / pairs;
-    std::cout << "pares:" << pairs << std::endl;
+    /* std::cout << "pares:" << pairs << std::endl; */
     if (pairs == 0)
     {
         coeficiente = 0;
     }
     if (print)
     {
-        std::cout << "O coeficiente de agrupamento local : " << coeficiente << std::endl;
+        std::cout << "Coeficiente de agrupamento local : " << coeficiente << std::endl;
     }
     return coeficiente;
 }
@@ -554,5 +554,125 @@ void Graph::agrupamentoGlobal()
     }
 
     coefGlobal = somaLocal / order;
-    std::cout << "O coeficiente de agrupamento medio do grafo : " << coefGlobal << std::endl;
+    std::cout << "Coeficiente de agrupamento medio do grafo : " << coefGlobal << std::endl;
 }
+
+/* void Graph::Dijkstra()
+{
+
+    int INF = 2147483647;
+
+    int ida, idb;
+    int id;
+    int menor = 0;
+    int peso;
+    Vertex *v;
+    Edge *e;
+
+    std::cout << "Digite o ID inicial:" << std::endl;
+    std::cin >> ida;
+
+    std::cout << "Digite o ID final:" << std::endl;
+    std::cin >> idb;
+
+    ida = ida - 1;
+    idb = idb - 1;
+
+    std::vector<int> inside;
+    std::vector<int> outside;
+    std::vector<int> distancia;
+    std::stack<int> antecessores;
+
+    inside.reserve(order);
+    outside.reserve(order);
+    distancia.reserve(order);
+
+    if (!getWeightedEdge())
+    {
+        peso = 1;
+    }
+
+    antecessores.push(ida);
+    // std::cout<<"order: "<<order;
+
+    for (int i = 0; i < order; i++)
+    {
+        inside[i] = INF;
+        outside[i] = i;
+        distancia[i] = INF;
+    }
+    inside[ida] = ida;
+    outside[ida] = INF;
+    distancia[ida] = 0;
+
+    /*std::cout<<std::endl<<"Distancias:[";
+       for(int j=0;j<order;j++){
+           std::cout<<distancia[j]<<", ";
+       }
+       std::cout<<"]"<<std::endl;*/
+
+    // std::cout<<std::endl<<"escolhidos: ";
+
+    for (int i = 0; i < order; i++)
+    {
+
+        if (i == 4)
+        {
+            cout << "";
+        }
+        // std::cout<<std::endl<<"Antecessores:"<<std::endl;
+        // for(j=0;j<antecessores.size();j++){
+        // std::cout<<antecessores.top();
+        //}
+
+        id = antecessores.top();
+
+        // std::cout<<"id:"<<id<<std::endl;
+
+        v = getVertexByID(id + 1);
+        for (e = v->getEdge(); e != NULL; e = e->getNext())
+        {
+
+            // std::cout<<e->getID()<<" ";
+            peso = 1;
+            if (getWeightedEdge())
+            {
+                peso = e->getWeight();
+            }
+            if (distancia[id] + peso < distancia[e->getID() - 1])
+            {
+                // std::cout<<std::endl<<distancia[id]+peso<<"<"<<distancia[e->getID()-1]<<std::endl;
+
+                distancia[e->getID() - 1] = distancia[id] + peso;
+            }
+        }
+        menor = INF;
+        for (int j = 1; j <= order; j++)
+        {
+            if (outside[j - 1] != INF && distancia[j - 1] < menor)
+            {
+                menor = j;
+            }
+        }
+        inside[menor - 1] = menor - 1;
+        outside[menor - 1] = INF;
+        antecessores.push(menor - 1);
+
+        /*if(menor==idb){
+            break;
+        }*/
+    }
+
+    // std::cout<< "menor: "<< menor;
+
+    std::cout << std::endl
+              << "Distancias:[";
+    for (int j = 0; j < order; j++)
+    {
+        std::cout << distancia[j] << " ";
+    }
+    std::cout << "]" << std::endl;
+
+    return;
+}
+ */

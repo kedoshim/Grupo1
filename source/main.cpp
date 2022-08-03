@@ -72,7 +72,7 @@ void menu(Graph *g)
     g->agrupamentoGlobal();
     break;
   case '5':
-    /* g->camMinD(); */
+    /* g->Dijkstra(); */
     break;
   case '6':
     /* g->camMinF(); */

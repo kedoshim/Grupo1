@@ -40,7 +40,7 @@ public:
 
     float agrupamentoLocal(int id, bool print);
     void agrupamentoGlobal();
-    float camMinD();
+    void Dijkstra();
     void camMinF();
     void agmPrim(Graph *g);
     void agmKruskal();
