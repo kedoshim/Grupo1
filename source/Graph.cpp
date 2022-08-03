@@ -319,8 +319,8 @@ void Graph::Djkstra(){
 
     int ida,idb;
     int id;
-    int menor;
-    int peso=INF;
+    int menor=0;
+    int peso;
     Vertex *v;
     Edge *e;
 
@@ -329,6 +329,9 @@ void Graph::Djkstra(){
     
     std::cout<<"Digite o ID final:"<<std::endl;
     std::cin>>idb;
+
+    ida=ida-1;
+    idb=idb-1;
 
     std::vector<int> inside;
     std::vector<int> outside;
@@ -342,132 +345,78 @@ void Graph::Djkstra(){
     if(!getEdgeIsWeighted()){peso=1;}
 
     antecessores.push(ida);
-    std::cout<<"nVertex: "<<nVertex;  
+    //std::cout<<"nVertex: "<<nVertex;  
     
     for(int i=0;i<nVertex;i++){
         inside[i]=INF;
         outside[i]=i;
-        distancia[i]=peso;
+        distancia[i]=INF;
     }
     inside[ida]=ida;
     outside[ida]=INF;
+    distancia[ida]=0;
 
-    std::cout<<std::endl<<"escolhidos: ";
+     /*std::cout<<std::endl<<"Distancias:[";
+        for(int j=0;j<nVertex;j++){
+            std::cout<<distancia[j]<<", ";
+        }
+        std::cout<<"]"<<std::endl;*/
 
-    for(int i=0;i<=nVertex;i++){
+
+
+    //std::cout<<std::endl<<"escolhidos: ";
+
+    for(int i=0;i<nVertex;i++){
+        //std::cout<<std::endl<<"Antecessores:"<<std::endl;
+        //for(j=0;j<antecessores.size();j++){
+            //std::cout<<antecessores.top();
+        //}
 
         id=antecessores.top();
 
-         std::cout<<id<<std::endl;
+        //std::cout<<"id:"<<id<<std::endl;
 
-        v=getVertexByID(id);
-        for(e=v->getEdge();e->getNext()!=nullptr;e=e->getNext()){
+        v=getVertexByID(id+1);
+        for(e=v->getEdge();e!=NULL;e=e->getNext()){
 
-            std::cout<<e->getID()<<" ";
-            peso=e->getWeight();
-            if(!getEdgeIsWeighted()){peso=1;}
-            if(distancia[id]+peso < distancia[e->getID()])
-                distancia[e->getID()]=distancia[id]+peso;
+            //std::cout<<e->getID()<<" ";
+            peso=1;
+            if(getEdgeIsWeighted()){peso=e->getWeight();}
+            if(distancia[id]+peso < distancia[e->getID()-1]){
+                //std::cout<<std::endl<<distancia[id]+peso<<"<"<<distancia[e->getID()-1]<<std::endl;
+                distancia[e->getID()-1]=distancia[id]+peso;
+        }
         }
         menor=INF;
-        for(int j:outside){
-            if(j!=INF&&distancia[j]<menor){
+        for(int j=1; j<=nVertex;j++){
+            if(outside[j-1]!=INF&&distancia[j-1]<menor){
                 menor=j;
             }
         }
-        inside[menor]=menor;
-        outside[menor]=INF;
-        antecessores.push(menor);
+        inside[menor-1]=menor-1;
+        outside[menor-1]=INF;
+        antecessores.push(menor-1);
+        //std::cout<< "menor: "<< menor;
+
+        /*std::cout<<std::endl<<"Distancias:[";
+        for(int j=0;j<nVertex;j++){
+            std::cout<<distancia[j];
+        }
+        std::cout<<"]"<<std::endl;*/
+            if(menor==idb){
+                break;
+            }
         
     }
-    std::cout<<"Vetor distâncias:"<<std::endl;
-    for(int i=0;i<=nVertex;i++){
-        std::cout<<distancia[i]<<" ";
+    
+    std::cout<<"antecessores "<<std::endl;
+    for(int i=0;i<nVertex;i++){
+        std::cout<<antecessores.top()+1<<" ";
+        antecessores.pop();
     }
+
+
+    return;
+
+    
 }
-
-/*void Graph::Djkstra(){
-
-    std::string IDa,IDb;
-    int ida,idb
-    Vertex *a,*b;
-    int aux;
-    std::string s = "";
-
-    std::cout << "\n";
-    std::cout << "Digite o ID do vertice inicial: ";
-    std::cin >> IDa;
-    std::cout << "Digite o ID do vertice final: ";
-    std::cin >> IDb;
-    std::cout << std::endl;
-    ida= stoi(IDa);
-    idb= stoi(IDb);
-
-    clearVertex();
-
-    a=getVertexByID(ida);
-    b=getVertexByID(idb);
-    
-    if (a!= nullptr && b!= nullptr)
-    { 
-        Edge* edge=nullptr;
-        Vertex* vertex=a;
-        int *distance = new int[nVertex];
-        bool *visited= new bool[nVertex];
-        int *antec = new int [nVertex];
-
-        for(int i=0;i<nVertex;i++){
-            distance[i]=INFINITY;
-            visited[i]= false;
-        }
-        distance[a]=0;
-        visited[a]=true;
-
-        int v,c,id,peso;
-
-        id=ida;
-
-        for(int i=0;i<nVertex-1;i++){
-
-            if (visited[id] == false)
-            {
-                visited[id] = true; //Marca o vertice como visitado
-                node = getVertexByID(id);
-                if (node != nullptr) //Busca o no pela posição
-                    edge = vertex->getEdge();
-                else
-                    edge = nullptr; //Pega a primeira aresta do no
-
-                while (edge != nullptr)
-                { //Passa por todas as arestas do vertice u
-
-                    if (!getEdgeIsWeighted())
-                        peso = 1; //Para caso não haja pesso a distância será 1 por salto
-                    else
-                        peso = edge->getWeight();
-
-                    v = edge->getID(); //Pega a posição do no Target dessa aresta
-
-                    if (distance[v] > (distance[id] + peso))
-                    {                                           //Verifica se a distância é menor
-                        antec[v] = id;                         //Atualiza o antecessor
-                        distance[v] = (distance[id] + peso); //Atualiza a distância
-                        fp.push(make_pair(distance[v], v)); //Adiciona o vertice na fila de prioridade
-                    }
-                    edge = edge->getNext(); //Avança para o a proxima aresta do vertice
-
-        for(edge=vertex->getEdge();edge != null; edge=edge->getNext){
-            distance[vertex]=edge->getWeight;
-        }
-        int menor=INFINITY;
-        for(int i=0; i<nVertex;i++){
-            if(visited[i]==false&&distance[i]>menor){
-                menor=distance[i];
-                aux=i;
-    
-        }
-    }
-        }
-
-    }
-}*/

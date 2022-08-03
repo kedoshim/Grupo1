@@ -12,10 +12,10 @@ argv[5] = nó ponderado
 void menu(Graph *g);
 int main(int argc, char **argv)
 {
-  /* if(argc != 6){
+   if(argc != 6){
       std::cout << "Numero errado de argumentos" << std::endl;
       return -1;
-  } */
+  } 
 
   Graph *g = new Graph(argv);
 
